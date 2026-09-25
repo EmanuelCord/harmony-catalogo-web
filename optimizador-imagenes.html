@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0A0A0C">
+    <title>Optimizador de imágenes | HARMONY</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="image-optimizer.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
+    <script src="image-optimizer.js" defer></script>
+</head>
+<body>
+    <header class="topbar">
+        <a class="brand" href="harmony_maquinaria_premium_para_gimnasios.html" aria-label="Volver al catálogo HARMONY">
+            <span class="brand-mark">H</span>
+            <span>HARMONY <small>FITNESS SYSTEMS</small></span>
+        </a>
+        <a class="back-link" href="harmony_maquinaria_premium_para_gimnasios.html">Volver al catálogo</a>
+    </header>
+
+    <main class="optimizer">
+        <div class="page-heading">
+            <p class="eyebrow">HERRAMIENTA DE CATÁLOGO</p>
+            <h1>Optimización de fotografías</h1>
+            <p>Asigna las imágenes a sus máquinas. Las fotos se procesan en este navegador y no se suben a ningún servidor.</p>
+        </div>
+
+        <section class="upload-section" aria-labelledby="upload-heading">
+            <div class="section-heading">
+                <div>
+                    <p class="step-label">01 / SELECCIÓN</p>
+                    <h2 id="upload-heading">Fotos de máquinas</h2>
+                </div>
+                <span id="selection-count" class="count">0 / 6</span>
+            </div>
+
+            <label class="drop-zone" for="image-input" id="drop-zone">
+                <span class="upload-icon" aria-hidden="true"><i></i></span>
+                <span class="drop-title">Selecciona o arrastra hasta seis imágenes</span>
+                <span class="drop-note">JPG, PNG, WebP o AVIF</span>
+                <input id="image-input" type="file" accept="image/jpeg,image/png,image/webp,image/avif" multiple>
+            </label>
+            <div id="image-queue" class="image-queue" aria-live="polite">
+                <p class="empty-state">Las imágenes seleccionadas aparecerán aquí para asignarlas.</p>
+            </div>
+        </section>
+
+        <section class="settings-section" aria-labelledby="settings-heading">
+            <div class="settings-title">
+                <p class="step-label">02 / COMPRESIÓN</p>
+                <h2 id="settings-heading">Ajustes de salida</h2>
+            </div>
+            <label class="setting-control" for="max-dimension">
+                <span>Dimensión máxima</span>
+                <span class="input-with-unit"><input id="max-dimension" type="number" min="640" max="2400" step="80" value="1600"><span>px</span></span>
+            </label>
+            <label class="setting-control" for="image-quality">
+                <span>Calidad JPEG</span>
+                <span class="quality-value"><output id="quality-value" for="image-quality">78</output>%</span>
+                <input id="image-quality" type="range" min="45" max="95" value="78">
+            </label>
+        </section>
+
+        <footer class="action-bar">
+            <p id="status-message" role="status">Asigna una imagen a cada una de las seis máquinas.</p>
+            <button id="optimize-button" type="button" disabled>
+                <span>Optimizar y descargar ZIP</span>
+                <span aria-hidden="true">&#8594;</span>
+            </button>
+        </footer>
+    </main>
+</body>
+</html>

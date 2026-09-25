@@ -1,0 +1,240 @@
+body {
+    background-color: #0A0A0C;
+    color: #F4F4F5;
+    font-family: 'Roboto', sans-serif;
+    overflow-x: hidden;
+}
+
+/* Neon Logo Effect */
+.neon-logo {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    color: #0A0A0C;
+    text-shadow:
+        0 0 5px #FF1E27,
+        0 0 10px #FF1E27,
+        0 0 20px #FF1E27,
+        0 0 40px #E50914;
+    -webkit-text-stroke: 1.5px #FF1E27;
+}
+
+.neon-logo-text {
+    letter-spacing: 0.15em;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0A0A0C;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #27272A;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #FF1E27;
+}
+
+/* Metallic overlay and background patterns */
+.metal-grid {
+    background-image: radial-gradient(rgba(255, 30, 39, 0.08) 1px, transparent 0);
+    background-size: 32px 32px;
+}
+
+.hero-vignette {
+    background: radial-gradient(circle at center, rgba(18, 18, 21, 0.3) 0%, rgba(10, 10, 12, 0.95) 100%);
+}
+
+/* Glass surfaces */
+.glass-panel {
+    background: rgba(18, 18, 21, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.glass-card {
+    background: rgba(22, 22, 26, 0.85);
+    border: 1px solid #1F1F26;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+    border-color: rgba(255, 30, 39, 0.5);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px -10px rgba(255, 30, 39, 0.25);
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #FFFFFF 0%, #A1A1AA 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.gradient-red-text {
+    background: linear-gradient(135deg, #FF4D54 0%, #FF1E27 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Responsive layout hooks */
+.responsive-grid,
+.responsive-form-grid {
+    display: grid;
+}
+
+.responsive-copy {
+    text-wrap: pretty;
+}
+
+@media (min-width: 1024px) {
+    #hero-stats {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    #products-grid,
+    #feature-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .responsive-form-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 641px) and (max-width: 1023px) {
+    #hero-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #products-grid,
+    #feature-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .responsive-form-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #main-header .responsive-header-inner {
+        height: 4.5rem;
+    }
+
+    #product-modal #modal-content {
+        max-height: 92vh;
+    }
+}
+
+@media (max-width: 640px) {
+    #main-header .responsive-header-inner {
+        min-height: 4.25rem;
+        height: auto;
+        gap: 0.5rem;
+    }
+
+    #main-header .neon-logo {
+        font-size: 1.25rem;
+    }
+
+    #main-header .responsive-header-actions {
+        gap: 0.5rem;
+    }
+
+    #inicio {
+        min-height: auto;
+        padding-top: 7rem;
+        padding-bottom: 3rem;
+    }
+
+    #inicio .responsive-heading {
+        font-size: 2.25rem;
+        line-height: 1.05;
+        overflow-wrap: anywhere;
+    }
+
+    #inicio .responsive-copy {
+        font-size: 0.95rem;
+    }
+
+    #hero-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.625rem;
+        margin-top: 3rem;
+    }
+
+    #hero-stats > div {
+        padding: 0.875rem 0.625rem;
+    }
+
+    #hero-stats > div > p:first-child {
+        font-size: 1.5rem;
+    }
+
+    #catalog-filters {
+        scroll-snap-type: x proximity;
+    }
+
+    #catalog-filters .filter-btn {
+        scroll-snap-align: start;
+    }
+
+    #products-grid,
+    #feature-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1.25rem;
+    }
+
+    .responsive-form-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    #product-modal {
+        padding: 0.75rem;
+    }
+
+    #product-modal #modal-content {
+        max-height: 94vh;
+        border-radius: 1rem;
+    }
+
+    #product-modal #modal-content > div {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    #product-modal #modal-image {
+        max-height: 15rem;
+    }
+
+    #product-modal #modal-content > div > div:last-child {
+        padding: 1.25rem;
+    }
+
+    #product-modal #modal-add-btn {
+        font-size: 0.65rem;
+        padding-inline: 0.75rem;
+    }
+
+    #cotizar .responsive-copy {
+        overflow-wrap: anywhere;
+    }
+
+    #cart-drawer-content {
+        padding: 1.25rem;
+    }
+
+    footer .responsive-footer-inner {
+        align-items: flex-start;
+    }
+
+    footer .responsive-footer-links {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+}

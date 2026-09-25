@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HARMONY | Maquinaria de Gimnasio Premium & Alta Gama</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Roboto & Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        harmony: {
+                            bg: '#0A0A0C',
+                            card: '#121215',
+                            cardBorder: '#1F1F26',
+                            red: '#FF1E27',
+                            redHover: '#E50914',
+                            redGlow: 'rgba(255, 30, 39, 0.4)',
+                            grayText: '#A1A1AA',
+                            darkSurface: '#16161A'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Roboto', 'sans-serif'],
+                        brand: ['Montserrat', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'neon-red': '0 0 20px rgba(255, 30, 39, 0.35)',
+                        'neon-red-lg': '0 0 35px rgba(255, 30, 39, 0.5)',
+                        'card-glow': '0 10px 30px -10px rgba(0, 0, 0, 0.8)'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="antialiased selection:bg-harmony-red selection:text-white">
+
+    <!-- Navigation Bar -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-white/10 transition-all duration-300" id="main-header">
+        <div class="responsive-header-inner max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <span class="neon-logo text-2xl sm:text-3xl font-extrabold tracking-wider neon-logo-text">HARMONY</span>
+                <span class="text-[10px] uppercase font-bold tracking-widest text-harmony-grayText border-l border-zinc-700 pl-3 hidden sm:inline-block">
+                    PRO FITNESS<br><span class="text-harmony-red">EQUIPMENT</span>
+                </span>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="#inicio" class="text-sm font-medium text-gray-300 hover:text-harmony-red transition-colors">Inicio</a>
+                <a href="#catalogo" class="text-sm font-medium text-gray-300 hover:text-harmony-red transition-colors">Catálogo</a>
+                <a href="#caracteristicas" class="text-sm font-medium text-gray-300 hover:text-harmony-red transition-colors">Ingeniería & Calidad</a>
+                <a href="#cotizar" class="text-sm font-medium text-gray-300 hover:text-harmony-red transition-colors">Cotizador</a>
+            </nav>
+
+            <!-- Actions CTA & Mobile Menu Toggle -->
+            <div class="responsive-header-actions flex items-center gap-4">
+                <a href="#cotizar" class="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-xs font-semibold tracking-wider uppercase rounded-lg group bg-gradient-to-br from-harmony-red to-red-800 group-hover:from-harmony-red group-hover:to-red-600 text-white shadow-neon-red hover:shadow-neon-red-lg transition-all duration-300">
+                    <span class="relative px-4 py-2.5 transition-all ease-in duration-75 bg-harmony-bg/20 rounded-md group-hover:bg-opacity-0 flex items-center gap-2">
+                        <i class="fa-solid fa-file-invoice">
+                        </i>
+                        <span>Cotizar Ahora</span>
+                    </span>
+                </a>
+
+                <!-- Cart / Quote Badge Button -->
+                <button onclick="openCartModal()" class="relative p-2.5 rounded-lg bg-harmony-card border border-harmony-cardBorder hover:border-harmony-red/50 text-gray-300 hover:text-white transition-all">
+                    <i class="fa-solid fa-dumbbell text-lg"></i>
+                    <span id="quote-badge" class="absolute -top-1.5 -right-1.5 bg-harmony-red text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-neon-red">0</span>
+                </button>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-300 hover:text-white focus:outline-none">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Nav -->
+        <div id="mobile-menu" class="hidden md:hidden glass-panel border-b border-zinc-800 px-4 pt-2 pb-6 space-y-3">
+            <a href="#inicio" class="block py-2 text-base font-medium text-gray-300 hover:text-harmony-red">Inicio</a>
+            <a href="#catalogo" class="block py-2 text-base font-medium text-gray-300 hover:text-harmony-red">Catálogo</a>
+            <a href="#caracteristicas" class="block py-2 text-base font-medium text-gray-300 hover:text-harmony-red">Ingeniería & Calidad</a>
+            <a href="#cotizar" class="block py-2 text-base font-medium text-gray-300 hover:text-harmony-red">Cotizador Directo</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="relative min-h-screen pt-28 pb-16 flex items-center justify-center metal-grid overflow-hidden">
+        <!-- Ambient Glow Elements -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-harmony-red/15 rounded-full blur-[140px] pointer-events-none"></div>
+        <div class="absolute bottom-10 right-10 w-[300px] h-[300px] bg-red-900/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full text-center">
+            
+            <!-- Badge Tag -->
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel border border-harmony-red/30 mb-8 shadow-neon-red">
+                <span class="w-2 h-2 rounded-full bg-harmony-red animate-pulse"></span>
+                <span class="text-xs font-semibold tracking-wider text-gray-200 uppercase">Línea Elite Comercial 2026</span>
+            </div>
+
+            <!-- Main Heading -->
+            <h1 class="responsive-heading text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight mb-6 uppercase font-brand leading-none">
+                <span class="gradient-text">INGENIERÍA DE PRECISIÓN</span> <br>
+                <span class="gradient-red-text">PARA GIMNASIOS DE ALTA GAMA</span>
+            </h1>
+
+            <p class="responsive-copy max-w-3xl mx-auto text-base sm:text-lg text-harmony-grayText mb-10 leading-relaxed">
+                Diseñadas para resistencia extrema y rendimiento biomecánico impecable. Estructuras de acero industrial con acabados en pintura electrostática mate y tapizado en microfibra deportiva reforzada.
+            </p>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+                <a href="#catalogo" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-harmony-red hover:bg-harmony-redHover text-white font-bold text-sm tracking-wider uppercase shadow-neon-red hover:shadow-neon-red-lg transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-list-check"></i>
+                    <span>Explorar Catálogo</span>
+                </a>
+                <a href="#cotizar" class="w-full sm:w-auto px-8 py-4 rounded-xl glass-panel border border-zinc-700 hover:border-harmony-red text-white font-bold text-sm tracking-wider uppercase transition-all flex items-center justify-center gap-3">
+                    <i class="fa-brands fa-whatsapp text-green-500 text-lg"></i>
+                    <span>Solicitar Asesoría VIP</span>
+                </a>
+            </div>
+
+            <!-- Stats Bar -->
+            <div id="hero-stats" class="responsive-grid mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                <div class="p-4 rounded-xl glass-panel border border-zinc-800">
+                    <p class="text-3xl font-black text-white font-brand">3.5 mm</p>
+                    <p class="text-xs text-harmony-grayText mt-1 uppercase tracking-wider">Espesor Acero de Chasis</p>
+                </div>
+                <div class="p-4 rounded-xl glass-panel border border-zinc-800">
+                    <p class="text-3xl font-black text-harmony-red font-brand">100%</p>
+                    <p class="text-xs text-harmony-grayText mt-1 uppercase tracking-wider">Ergonomía Aislamiento</p>
+                </div>
+                <div class="p-4 rounded-xl glass-panel border border-zinc-800">
+                    <p class="text-3xl font-black text-white font-brand">500+ KG</p>
+                    <p class="text-xs text-harmony-grayText mt-1 uppercase tracking-wider">Capacidad de Carga Máxima</p>
+                </div>
+                <div class="p-4 rounded-xl glass-panel border border-zinc-800">
+                    <p class="text-3xl font-black text-harmony-red font-brand">PRO</p>
+                    <p class="text-xs text-harmony-grayText mt-1 uppercase tracking-wider">Garantía Comercial</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catalog Section -->
+    <section id="catalogo" class="py-24 bg-harmony-bg relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 border-b border-zinc-800 pb-8">
+                <div>
+                    <div class="flex items-center gap-2 text-harmony-red font-semibold text-xs tracking-widest uppercase mb-2">
+                        <i class="fa-solid fa-layer-group"></i>
+                        <span>Equipamiento Profesional</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold font-brand text-white uppercase tracking-tight">
+                        Catálogo <span class="text-harmony-red">HARMONY</span>
+                    </h2>
+                </div>
+                <p class="text-harmony-grayText text-sm max-w-md mt-4 md:mt-0">
+                    Selecciona una categoría para explorar la biomecánica, especificaciones técnicas y guía paso a paso de cada equipo.
+                </p>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="flex items-center justify-start overflow-x-auto gap-3 mb-10 pb-2 scrollbar-none" id="catalog-filters">
+                <button onclick="filterCatalog('all')" class="filter-btn active px-6 py-3 rounded-lg text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap bg-harmony-red text-white shadow-neon-red" data-category="all">
+                    Todas las Máquinas
+                </button>
+                <button onclick="filterCatalog('fuerza')" class="filter-btn px-6 py-3 rounded-lg text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap bg-harmony-card border border-harmony-cardBorder text-gray-400 hover:text-white hover:border-harmony-red/50" data-category="fuerza">
+                    Fuerza / Tren Superior
+                </button>
+                <button onclick="filterCatalog('piernas')" class="filter-btn px-6 py-3 rounded-lg text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap bg-harmony-card border border-harmony-cardBorder text-gray-400 hover:text-white hover:border-harmony-red/50" data-category="piernas">
+                    Tren Inferior / Piernas
+                </button>
+                <button onclick="filterCatalog('bancos')" class="filter-btn px-6 py-3 rounded-lg text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap bg-harmony-card border border-harmony-cardBorder text-gray-400 hover:text-white hover:border-harmony-red/50" data-category="bancos">
+                    Bancos & Estaciones
+                </button>
+            </div>
+
+            <!-- Products Grid Container -->
+            <div class="responsive-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="products-grid">
+                <!-- Dynamic JavaScript rendering will populate products here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Detail & Usage Modal -->
+    <div id="product-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+        <div class="relative w-full max-w-4xl max-h-[90vh] bg-harmony-card border border-zinc-800 rounded-2xl overflow-y-auto shadow-2xl transition-all duration-300 scale-95" id="modal-content">
+            
+            <!-- Close Button -->
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/60 border border-zinc-700 text-white flex items-center justify-center hover:bg-harmony-red transition-colors">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div class="grid grid-cols-1 md:grid-cols-2">
+                <!-- Product Image Preview Container -->
+                <div class="relative bg-black/50 p-6 flex flex-col justify-between border-b md:border-b-0 md:border-r border-zinc-800">
+                    <div class="absolute top-4 left-4 z-10">
+                        <span id="modal-category" class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-harmony-red/20 text-harmony-red border border-harmony-red/30">
+                            Categoría
+                        </span>
+                    </div>
+
+                    <div class="my-auto py-8 flex justify-center">
+                        <img id="modal-image" src="" alt="Producto Harmony" loading="lazy" decoding="async" class="max-h-[380px] w-auto object-contain rounded-lg drop-shadow-[0_15px_15px_rgba(0,0,0,0.8)]">
+                    </div>
+
+                    <div class="p-3 bg-zinc-900/80 rounded-lg border border-zinc-800 text-xs text-gray-400">
+                        <i class="fa-solid fa-shield-halved text-harmony-red mr-2"></i> Acabado en Pintura Electrostática Mate anti-corrosión & Tapizado Cuero HD con costura roja.
+                    </div>
+                </div>
+
+                <!-- Product Details & Specs -->
+                <div class="p-6 sm:p-8 flex flex-col justify-between">
+                    <div>
+                        <h3 id="modal-title" class="text-2xl sm:text-3xl font-black font-brand text-white uppercase tracking-tight mb-2">
+                            Nombre del Producto
+                        </h3>
+                        <p id="modal-subtitle" class="text-xs text-harmony-red font-semibold uppercase tracking-wider mb-6">
+                            Subtítulo o código
+                        </p>
+
+                        <!-- Accordion Tabs / Sections -->
+                        <div class="space-y-6 text-sm">
+                            <!-- Description -->
+                            <div>
+                                <h4 class="text-xs font-bold text-gray-300 uppercase tracking-wider mb-2 flex items-center gap-2">
+                                    <i class="fa-solid fa-align-left text-harmony-red"></i> Biomecánica & Descripción
+                                </h4>
+                                <p id="modal-description" class="text-harmony-grayText leading-relaxed text-xs sm:text-sm">
+                                    Descripción detallada.
+                                </p>
+                            </div>
+
+                            <!-- Specs -->
+                            <div>
+                                <h4 class="text-xs font-bold text-gray-300 uppercase tracking-wider mb-2 flex items-center gap-2">
+                                    <i class="fa-solid fa-microchip text-harmony-red"></i> Especificaciones Técnicas
+                                </h4>
+                                <ul id="modal-specs" class="space-y-1.5 text-xs text-harmony-grayText">
+                                    <!-- Dynamic specs -->
+                                </ul>
+                            </div>
+
+                            <!-- Usage Guide -->
+                            <div class="p-4 rounded-xl bg-zinc-900/90 border border-zinc-800">
+                                <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-2 flex items-center gap-2">
+                                    <i class="fa-solid fa-person-walking-luggage text-harmony-red"></i> Guía de Uso Correcto
+                                </h4>
+                                <p id="modal-usage" class="text-xs text-gray-300 leading-relaxed">
+                                    Instrucciones de entrenamiento y postura.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal Actions -->
+                    <div class="mt-8 pt-6 border-t border-zinc-800 flex items-center gap-4">
+                        <button id="modal-add-btn" onclick="" class="flex-1 py-3.5 px-4 rounded-xl bg-harmony-red hover:bg-harmony-redHover text-white text-xs font-bold uppercase tracking-wider shadow-neon-red transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>Agregar a Lista de Cotización</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Brand Features Section -->
+    <section id="caracteristicas" class="py-24 bg-harmony-darkSurface relative border-t border-b border-zinc-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold text-harmony-red tracking-widest uppercase mb-2 block">Diferenciales HARMONY</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold font-brand uppercase tracking-tight text-white">
+                    CALIDAD PREMIUM SIN COMPROMISOS
+                </h2>
+                <p class="text-harmony-grayText text-sm mt-4">
+                    Cada elemento estructural de nuestros equipos ha sido pensado para el máximo confort del atleta y el uso ininterrumpido en gimnasios comerciales.
+                </p>
+            </div>
+
+            <div id="feature-grid" class="responsive-grid grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="p-8 rounded-2xl glass-panel border border-zinc-800 hover:border-harmony-red/40 transition-all group">
+                    <div class="w-14 h-14 rounded-xl bg-harmony-red/10 border border-harmony-red/30 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-cubes-stacked text-2xl text-harmony-red"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-brand uppercase text-white mb-3">Chasis de Acero Estructural</h3>
+                    <p class="text-harmony-grayText text-xs leading-relaxed">
+                        Tubería de acero pesado con soldadura robótica continua y pintura electrostática mate para prevenir arañazos, óxido y corrosión.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="p-8 rounded-2xl glass-panel border border-zinc-800 hover:border-harmony-red/40 transition-all group">
+                    <div class="w-14 h-14 rounded-xl bg-harmony-red/10 border border-harmony-red/30 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-child-reaching text-2xl text-harmony-red"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-brand uppercase text-white mb-3">Biomecánica Iso-Lateral</h3>
+                    <p class="text-harmony-grayText text-xs leading-relaxed">
+                        Curvas de resistencia optimizadas que imitan el movimiento natural de las articulaciones, maximizando la contracción muscular y reduciendo lesiones.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="p-8 rounded-2xl glass-panel border border-zinc-800 hover:border-harmony-red/40 transition-all group">
+                    <div class="w-14 h-14 rounded-xl bg-harmony-red/10 border border-harmony-red/30 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-couch text-2xl text-harmony-red"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-brand uppercase text-white mb-3">Tapizado Industrial HD</h3>
+                    <p class="text-harmony-grayText text-xs leading-relaxed">
+                        Cojines de espuma inyectada de alta densidad revestidos en microfibra sintética reforzada con costuras dobles rojas de alta resistencia.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote / Contact Section -->
+    <section id="cotizar" class="py-24 bg-harmony-bg relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div id="quote-layout" class="responsive-grid grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Info Banner -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-harmony-red/10 border border-harmony-red/30 text-harmony-red text-xs font-bold uppercase">
+                        <i class="fa-solid fa-headset"></i>
+                        <span>Atención Corporativa & Mayorista</span>
+                    </div>
+
+                    <h2 class="text-3xl sm:text-5xl font-extrabold font-brand uppercase text-white leading-tight">
+                        SOLICITA TU <span class="gradient-red-text">COTIZACIÓN</span> PERSONALIZADA
+                    </h2>
+
+                    <p class="text-harmony-grayText text-sm leading-relaxed">
+                        Añade los equipos que deseas desde nuestro catálogo interactivo o envíanos un mensaje directo para recibir asesoría técnica en la configuración total de tu centro de entrenamiento.
+                    </p>
+
+                    <div class="space-y-4 pt-4">
+                        <div class="flex items-center gap-4 p-4 rounded-xl glass-panel border border-zinc-800">
+                            <div class="w-10 h-10 rounded-lg bg-green-500/10 border border-green-500/30 flex items-center justify-center text-green-500">
+                                <i class="fa-brands fa-whatsapp text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-harmony-grayText uppercase">Atención Inmediata WhatsApp</p>
+                                <p class="text-sm font-bold text-white">+54 9 11 8844-3322</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4 p-4 rounded-xl glass-panel border border-zinc-800">
+                            <div class="w-10 h-10 rounded-lg bg-harmony-red/10 border border-harmony-red/30 flex items-center justify-center text-harmony-red">
+                                <i class="fa-solid fa-envelope text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-harmony-grayText uppercase">Ventas Directas</p>
+                                <p class="text-sm font-bold text-white">ventas@harmonyfitness.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Interactive Form -->
+                <div class="lg:col-span-7">
+                    <div class="p-8 sm:p-10 rounded-2xl glass-panel border border-zinc-800 shadow-2xl relative">
+                        <h3 class="text-xl font-bold font-brand text-white uppercase mb-6 flex items-center gap-2">
+                            <i class="fa-solid fa-paper-plane text-harmony-red"></i>
+                            Formulario de Presupuesto Directo
+                        </h3>
+
+                        <form id="quote-form" onsubmit="handleQuoteSubmit(event)" class="space-y-5">
+                            <div class="responsive-form-grid grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">Nombre Completo *</label>
+                                    <input type="text" required id="form-name" placeholder="Ej. Carlos Mendoza" class="w-full px-4 py-3.5 rounded-xl bg-zinc-900 border border-zinc-800 text-white text-sm focus:border-harmony-red focus:outline-none transition-colors">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">Teléfono / WhatsApp *</label>
+                                    <input type="tel" required id="form-phone" placeholder="Ej. +54 9 11 ..." class="w-full px-4 py-3.5 rounded-xl bg-zinc-900 border border-zinc-800 text-white text-sm focus:border-harmony-red focus:outline-none transition-colors">
+                                </div>
+                            </div>
+
+                            <div class="responsive-form-grid grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">Gimnasio / Empresa</label>
+                                    <input type="text" id="form-company" placeholder="Ej. Harmony Gym Club" class="w-full px-4 py-3.5 rounded-xl bg-zinc-900 border border-zinc-800 text-white text-sm focus:border-harmony-red focus:outline-none transition-colors">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">Ciudad / Ubicación</label>
+                                    <input type="text" id="form-location" placeholder="Ej. Buenos Aires" class="w-full px-4 py-3.5 rounded-xl bg-zinc-900 border border-zinc-800 text-white text-sm focus:border-harmony-red focus:outline-none transition-colors">
+                                </div>
+                            </div>
+
+                            <!-- Selected Items Display inside Form -->
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">
+                                    Equipos de Interés Seleccionados
+                                </label>
+                                <div id="form-selected-items" class="p-3 rounded-xl bg-zinc-900 border border-zinc-800 min-h-[50px] flex flex-wrap gap-2 text-xs text-harmony-grayText items-center">
+                                    <span>Ningún equipo seleccionado aún. Puedes elegir desde el catálogo.</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">Mensaje o Requerimientos Adicionales</label>
+                                <textarea id="form-message" rows="3" placeholder="Detalla cantidades requeridas, equipamiento personalizado o fechas de apertura de tu gimnasio..." class="w-full px-4 py-3.5 rounded-xl bg-zinc-900 border border-zinc-800 text-white text-sm focus:border-harmony-red focus:outline-none transition-colors"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full py-4 rounded-xl bg-harmony-red hover:bg-harmony-redHover text-white text-sm font-bold uppercase tracking-widest shadow-neon-red hover:shadow-neon-red-lg transition-all flex items-center justify-center gap-3">
+                                <i class="fa-brands fa-whatsapp text-lg"></i>
+                                <span>Enviar Solicitud por WhatsApp</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart / Quote Floating Drawer Modal -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 flex justify-end bg-black/70 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300">
+        <div class="w-full max-w-md h-full bg-harmony-card border-l border-zinc-800 p-6 flex flex-col justify-between shadow-2xl translate-x-full transition-transform duration-300" id="cart-drawer-content">
+            <div>
+                <div class="flex items-center justify-between pb-6 border-b border-zinc-800">
+                    <h3 class="text-lg font-bold font-brand text-white uppercase flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-harmony-red"></i> Lista para Cotización
+                    </h3>
+                    <button onclick="closeCartModal()" class="text-gray-400 hover:text-white">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- Items list -->
+                <div id="cart-items-list" class="py-6 space-y-4 max-h-[60vh] overflow-y-auto">
+                    <!-- Dynamic Cart Items -->
+                </div>
+            </div>
+
+            <div class="pt-6 border-t border-zinc-800 space-y-4">
+                <a href="#cotizar" onclick="closeCartModal()" class="w-full py-3.5 rounded-xl bg-harmony-red hover:bg-harmony-redHover text-white text-xs font-bold uppercase tracking-wider shadow-neon-red transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>Ir al Formulario de Presupuesto</span>
+                </a>
+                <button onclick="clearCart()" class="w-full py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-gray-400 text-xs font-semibold uppercase tracking-wider transition-colors">
+                    Vaciar Lista
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-black border-t border-zinc-900 py-12">
+        <div class="responsive-footer-inner max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <span class="neon-logo text-xl font-extrabold tracking-wider">HARMONY</span>
+                <span class="text-[10px] text-harmony-grayText border-l border-zinc-800 pl-3 uppercase">
+                    © 2026 HARMONY FITNESS SYSTEMS. ALL RIGHTS RESERVED.
+                </span>
+            </div>
+
+            <div class="responsive-footer-links flex items-center gap-6 text-harmony-grayText text-sm">
+                <a href="#inicio" class="hover:text-harmony-red transition-colors">Inicio</a>
+                <a href="#catalogo" class="hover:text-harmony-red transition-colors">Catálogo</a>
+                <a href="#caracteristicas" class="hover:text-harmony-red transition-colors">Garantía</a>
+                <a href="#cotizar" class="hover:text-harmony-red transition-colors">Soporte</a>
+                <a href="optimizador-imagenes.html" class="hover:text-harmony-red transition-colors">Optimizar imágenes</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Catalog Products Database with accurate images from user context
+        const productsData = [
+            {
+                id: 'hack-squat',
+                name: 'Prensa Hack Squat Pro 45°',
+                category: 'piernas',
+                categoryLabel: 'Tren Inferior',
+                subtitle: 'Modelo HM-HS45',
+                image: 'assets/images/optimized/1_3.jpg',
+                description: 'Diseñada para focalizar de manera aislada y segura los cuadriceps y glúteos. Su carril angular de 45 grados cuenta con rodamientos lineales blindados que garantizan un deslizamiento supersuave bajo cargas pesadas.',
+                specs: [
+                    'Chasis: Tubo ovalado de acero de 3.5mm de espesor.',
+                    'Capacidad: Carga máxima soportada de 550 KG en discos olímpicos.',
+                    'Ajustes: Inclinación de plataforma de pies antideslizante con textura de diamante.',
+                    'Seguridad: Palancas de frenado doble de liberación rápida.'
+                ],
+                usage: 'Colóquese con la espalda apoyada firmemente sobre el respaldo inclinado y los hombros bajo los soportes acojinados. Coloque los pies al ancho de las caderas en la plataforma antideslizante. Libere los topes laterales y descienda de forma controlada formando un ángulo de 90° en las rodillas antes de empujar con los talones.'
+            },
+            {
+                id: 'v-squat',
+                name: 'V-Squat & Sentadilla Guiada Iso-Lateral',
+                category: 'piernas',
+                categoryLabel: 'Tren Inferior',
+                subtitle: 'Modelo HM-VS08',
+                image: 'assets/images/optimized/4.jpg',
+                description: 'Permite un arco de movimiento natural que simula la sentadilla libre pero reduciendo la presión en la zona lumbar. Excelente opción para hipertrofia de piernas con máxima estabilidad corporal.',
+                specs: [
+                    'Mecanismo: Articulación iso-lateral con rodamientos sellados de alto tráfico.',
+                    'Soportes: Asideros con agarres ergonómicos de goma antideslizante.',
+                    'Tapizado: Cuero sintético reforzado anti-sudor con costura roja doble.'
+                ],
+                usage: 'Ajuste la posición del cuerpo mirando hacia el respaldo o de espaldas según el enfoque muscular deseado (cuádriceps o cadena posterior). Mantenga el núcleo contraído durante toda la fase excéntrica y evite el bloqueo brusco de rodillas arriba.'
+            },
+            {
+                id: 'scott-bench',
+                name: 'Banco Predicador Bíceps / Scott Bench Pro',
+                category: 'bancos',
+                categoryLabel: 'Bancos & Estaciones',
+                subtitle: 'Modelo HM-PB02',
+                image: 'assets/images/optimized/DSC08475.jpg',
+                description: 'Banco de aislamiento óptimo para flexiones de bíceps con barra Z u olímpica. Cuenta con ángulo Anatómico diseñado para proteger codos y maximizar la tensión en la cabeza del bíceps.',
+                specs: [
+                    'Ángulo del Almohadón: 45° para un estiramiento y tensión constantes.',
+                    'Estructura: Acero macizo de alta rigidez y bases estabilizadoras con goma.',
+                    'Soporte Barbell: Soportes de barra recubiertos en polímero de alta densidad para evitar desgaste de pintura.'
+                ],
+                usage: 'Siéntese y coloque la axila firmemente apoyada en el borde superior del cojín. Tome la barra Z con agarre supino. Realice una flexión de codos concentrada, evitando balancear el torso para mantener el aislamiento total de los bíceps.'
+            },
+            {
+                id: 'decline-press',
+                name: 'Banco Declinado con Soporte Olímpico',
+                category: 'fuerza',
+                categoryLabel: 'Fuerza / Tren Superior',
+                subtitle: 'Modelo HM-DB01',
+                image: 'assets/images/optimized/1_2.jpg',
+                description: 'Diseñado específicamente para el trabajo potente del pectoral inferior y tríceps. Incluye rodillos de fijación de piernas para un bloqueo seguro y estabilidad superior durante levantamientos pesados.',
+                specs: [
+                    'Estructura: Estación olímpica integrada con soportes multinivel de barra.',
+                    'Soporte de Discos: Pivotes de almacenamiento lateral para discos olímpicos incorporados.',
+                    'Ajuste de Rodillos: Ajustable a diferentes longitudes de pierna.'
+                ],
+                usage: 'Enganche las piernas en los rodillos acojinados superiores e inferiores y recuéstese totalmente. Desenganche la barra olímpica con un agarre ligeramente más ancho que los hombros. Descienda la barra hasta la parte baja del esternón y presione firmemente hacia arriba.'
+            },
+            {
+                id: 'iso-row',
+                name: 'Remo Articulado Iso-Lateral / Pecho Apoyado',
+                category: 'fuerza',
+                categoryLabel: 'Fuerza / Tren Superior',
+                subtitle: 'Modelo HM-RW10',
+                image: 'assets/images/optimized/DSC07716.jpg',
+                description: 'Máquina de aislamiento para el desarrollo de dorsal ancho, romboides y trapecios. Permite el trabajo convergente unilateral o bilateral para corregir desbalances musculares.',
+                specs: [
+                    'Movimiento: Divergente / Convergente independiente por brazo.',
+                    'Plataforma: Apoyo pectoral denso con regulación de altura.',
+                    'Agarres: Agarre neutro y prono en acero moleteado inoxidables.'
+                ],
+                usage: 'Ajuste el asiento para que el cojín pectoral quede a la altura del esternón. Sujete los agarres iso-laterales con los brazos extendidos y retraiga las escápulas tirando de los codos hacia atrás sintiendo la máxima contracción dorsal.'
+            },
+            {
+                id: 'hip-thrust',
+                name: 'Estación Hip Thrust / Glute Drive Pro',
+                category: 'piernas',
+                categoryLabel: 'Tren Inferior',
+                subtitle: 'Modelo HM-GT05',
+                image: 'assets/images/optimized/1.jpg',
+                description: 'Máquina biomecánica especializada para la activación masiva de glúteos. Reemplaza las configuraciones tradicionales incomodas con barra por un cinturón de ajuste cómodo y plataforma antideslizante.',
+                specs: [
+                    'Respaldo: Rodillo giratorio articulado para alineación lumbar constante.',
+                    'Plataforma de Pies: Superficie ancha multi-ángulo con tratamiento anti-deslizamiento.',
+                    'Carga: Pivotes laterales de carga para discos de 50mm.'
+                ],
+                usage: 'Colóquese sobre la plataforma, ajuste el cinturón acolchado sobre la cadera y apoye la espalda superior sobre el respaldo cilíndrico. Empuje con los talones elevando la cadera hasta lograr una alineación neutral de columna y contracción completa de glúteos.'
+            }
+        ];
+
+        // State Management
+        let selectedQuoteItems = [];
+
+        // DOM Ready Initializer
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProductsGrid(productsData);
+            setupMobileMenu();
+        });
+
+        // Render Catalog Grid
+        function renderProductsGrid(products) {
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = '';
+
+            products.forEach(product => {
+                const isSelected = selectedQuoteItems.some(item => item.id === product.id);
+
+                const cardHTML = `
+                    <div class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between group">
+                        <div class="relative p-6 bg-black/40 border-b border-zinc-800/80 flex items-center justify-center min-h-[280px]">
+                            <span class="absolute top-4 left-4 z-10 text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-harmony-card border border-zinc-700 text-harmony-grayText">
+                                ${product.categoryLabel}
+                            </span>
+
+                            <img src="${product.image}" alt="${product.name}" loading="lazy" decoding="async" class="max-h-[220px] w-auto object-contain transition-transform duration-500 group-hover:scale-105 drop-shadow-[0_10px_10px_rgba(0,0,0,0.7)]">
+                        </div>
+
+                        <div class="p-6 flex-1 flex flex-col justify-between">
+                            <div>
+                                <span class="text-[10px] font-bold uppercase text-harmony-red tracking-wider">${product.subtitle}</span>
+                                <h3 class="text-lg font-bold font-brand uppercase text-white mt-1 mb-2 group-hover:text-harmony-red transition-colors">
+                                    ${product.name}
+                                </h3>
+                                <p class="text-harmony-grayText text-xs line-clamp-2 leading-relaxed mb-6">
+                                    ${product.description}
+                                </p>
+                            </div>
+
+                            <div class="space-y-3 pt-4 border-t border-zinc-800/60">
+                                <button onclick="openProductModal('${product.id}')" class="w-full py-2.5 rounded-lg bg-zinc-900 border border-zinc-700 hover:border-harmony-red text-white text-xs font-semibold uppercase tracking-wider transition-all flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-circle-info text-harmony-red"></i>
+                                    <span>Ver Detalle & Uso</span>
+                                </button>
+
+                                <button onclick="toggleQuoteItem('${product.id}')" id="btn-quote-${product.id}" class="w-full py-2.5 rounded-lg ${isSelected ? 'bg-green-600 hover:bg-green-700' : 'bg-harmony-red hover:bg-harmony-redHover'} text-white text-xs font-bold uppercase tracking-wider shadow-neon-red transition-all flex items-center justify-center gap-2">
+                                    <i class="fa-solid ${isSelected ? 'fa-check' : 'fa-plus'}"></i>
+                                    <span>${isSelected ? 'Añadido a Cotización' : 'Agregar a Cotización'}</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += cardHTML;
+            });
+        }
+
+        // Filter Functionality
+        function filterCatalog(category) {
+            // Update active tab buttons
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                if(btn.dataset.category === category) {
+                    btn.classList.add('bg-harmony-red', 'text-white', 'shadow-neon-red');
+                    btn.classList.remove('bg-harmony-card', 'border-harmony-cardBorder', 'text-gray-400');
+                } else {
+                    btn.classList.remove('bg-harmony-red', 'text-white', 'shadow-neon-red');
+                    btn.classList.add('bg-harmony-card', 'border-harmony-cardBorder', 'text-gray-400');
+                }
+            });
+
+            if(category === 'all') {
+                renderProductsGrid(productsData);
+            } else {
+                const filtered = productsData.filter(p => p.category === category);
+                renderProductsGrid(filtered);
+            }
+        }
+
+        // Modal Handlers
+        function openProductModal(productId) {
+            const product = productsData.find(p => p.id === productId);
+            if(!product) return;
+
+            document.getElementById('modal-title').innerText = product.name;
+            document.getElementById('modal-subtitle').innerText = product.subtitle;
+            document.getElementById('modal-category').innerText = product.categoryLabel;
+            const modalImage = document.getElementById('modal-image');
+            modalImage.src = product.image;
+            modalImage.alt = product.name;
+            document.getElementById('modal-description').innerText = product.description;
+            document.getElementById('modal-usage').innerText = product.usage;
+
+            // Render specs list
+            const specsList = document.getElementById('modal-specs');
+            specsList.innerHTML = '';
+            product.specs.forEach(spec => {
+                specsList.innerHTML += `<li class="flex items-start gap-2"><i class="fa-solid fa-angle-right text-harmony-red mt-1"></i> <span>${spec}</span></li>`;
+            });
+
+            // Update add button in modal
+            const isSelected = selectedQuoteItems.some(item => item.id === product.id);
+            const modalAddBtn = document.getElementById('modal-add-btn');
+            modalAddBtn.onclick = () => {
+                toggleQuoteItem(product.id);
+                openProductModal(product.id); // Refresh modal button state
+            };
+
+            if(isSelected) {
+                modalAddBtn.className = "flex-1 py-3.5 px-4 rounded-xl bg-green-600 hover:bg-green-700 text-white text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2";
+                modalAddBtn.innerHTML = `<i class="fa-solid fa-check"></i><span>En Lista de Cotización</span>`;
+            } else {
+                modalAddBtn.className = "flex-1 py-3.5 px-4 rounded-xl bg-harmony-red hover:bg-harmony-redHover text-white text-xs font-bold uppercase tracking-wider shadow-neon-red transition-all flex items-center justify-center gap-2";
+                modalAddBtn.innerHTML = `<i class="fa-solid fa-plus"></i><span>Agregar a Lista de Cotización</span>`;
+            }
+
+            // Show Modal
+            const modal = document.getElementById('product-modal');
+            const modalContent = document.getElementById('modal-content');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-95');
+            modalContent.classList.add('scale-100');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProductModal() {
+            const modal = document.getElementById('product-modal');
+            const modalContent = document.getElementById('modal-content');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Quote Cart Management
+        function toggleQuoteItem(productId) {
+            const index = selectedQuoteItems.findIndex(item => item.id === productId);
+            const product = productsData.find(p => p.id === productId);
+
+            if(index > -1) {
+                selectedQuoteItems.splice(index, 1);
+            } else if(product) {
+                selectedQuoteItems.push(product);
+            }
+
+            updateQuoteBadge();
+            updateFormSelectedItemsDisplay();
+            
+            // Re-render to update catalog button status
+            const activeFilter = document.querySelector('.filter-btn.bg-harmony-red')?.dataset.category || 'all';
+            filterCatalog(activeFilter);
+        }
+
+        function updateQuoteBadge() {
+            const badge = document.getElementById('quote-badge');
+            badge.innerText = selectedQuoteItems.length;
+        }
+
+        function updateFormSelectedItemsDisplay() {
+            const container = document.getElementById('form-selected-items');
+            if(selectedQuoteItems.length === 0) {
+                container.innerHTML = `<span>Ningún equipo seleccionado aún. Puedes elegir desde el catálogo.</span>`;
+                return;
+            }
+
+            container.innerHTML = selectedQuoteItems.map(item => `
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-harmony-red/20 border border-harmony-red/40 text-white font-medium text-xs">
+                    ${item.name}
+                    <button type="button" onclick="toggleQuoteItem('${item.id}')" class="text-harmony-grayText hover:text-white ml-1">
+                        <i class="fa-solid fa-xmark text-xs"></i>
+                    </button>
+                </span>
+            `).join('');
+        }
+
+        function openCartModal() {
+            renderCartDrawerItems();
+            const drawer = document.getElementById('cart-drawer');
+            const drawerContent = document.getElementById('cart-drawer-content');
+            drawer.classList.remove('opacity-0', 'pointer-events-none');
+            drawerContent.classList.remove('translate-x-full');
+        }
+
+        function closeCartModal() {
+            const drawer = document.getElementById('cart-drawer');
+            const drawerContent = document.getElementById('cart-drawer-content');
+            drawer.classList.add('opacity-0', 'pointer-events-none');
+            drawerContent.classList.add('translate-x-full');
+        }
+
+        function renderCartDrawerItems() {
+            const list = document.getElementById('cart-items-list');
+            if(selectedQuoteItems.length === 0) {
+                list.innerHTML = `<p class="text-xs text-harmony-grayText text-center py-8">Tu lista de cotización está vacía.</p>`;
+                return;
+            }
+
+            list.innerHTML = selectedQuoteItems.map(item => `
+                <div class="flex items-center justify-between p-3 rounded-xl bg-zinc-900 border border-zinc-800">
+                    <div class="flex items-center gap-3">
+                        <img src="${item.image}" alt="${item.name}" loading="lazy" decoding="async" class="w-12 h-12 object-contain bg-black/40 rounded-lg p-1">
+                        <div>
+                            <p class="text-xs font-bold uppercase text-white">${item.name}</p>
+                            <p class="text-[10px] text-harmony-red">${item.subtitle}</p>
+                        </div>
+                    </div>
+                    <button onclick="toggleQuoteItem('${item.id}'); renderCartDrawerItems();" class="p-2 text-zinc-500 hover:text-harmony-red">
+                        <i class="fa-solid fa-trash text-xs"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function clearCart() {
+            selectedQuoteItems = [];
+            updateQuoteBadge();
+            updateFormSelectedItemsDisplay();
+            renderCartDrawerItems();
+            renderProductsGrid(productsData);
+        }
+
+        // WhatsApp Quote Submission
+        function handleQuoteSubmit(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('form-name').value;
+            const phone = document.getElementById('form-phone').value;
+            const company = document.getElementById('form-company').value || 'No especificado';
+            const location = document.getElementById('form-location').value || 'No especificada';
+            const message = document.getElementById('form-message').value || 'Sin detalles extra';
+
+            const itemsList = selectedQuoteItems.length > 0 
+                ? selectedQuoteItems.map(i => `• ${i.name} (${i.subtitle})`).join('%0A')
+                : 'Consulta general de catálogo / Asesoramiento completo';
+
+            const text = `*SOLICITUD DE COTIZACIÓN - HARMONY FITNESS*%0A%0A` +
+                         `*Cliente:* ${name}%0A` +
+                         `*Teléfono:* ${phone}%0A` +
+                         `*Gimnasio/Empresa:* ${company}%0A` +
+                         `*Ubicación:* ${location}%0A%0A` +
+                         `*EQUIPOS DE INTERÉS:*%0A${itemsList}%0A%0A` +
+                         `*Mensaje:* ${message}`;
+
+            const whatsappUrl = `https://wa.me/5491188443322?text=${text}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Mobile Menu Toggle
+        function setupMobileMenu() {
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+
+            btn.addEventListener('click', () => {
+                menu.classList.toggle('hidden');
+            });
+        }
+    </script>
+</body>
+</html>
