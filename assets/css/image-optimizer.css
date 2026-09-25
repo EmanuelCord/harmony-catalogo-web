@@ -6,7 +6,7 @@
     --line: #29292f;
     --muted: #a1a1aa;
     --text: #f4f4f5;
-    --red: #ff1e27;
+    --red: #E30613;
     --green: #83c995;
 }
 
@@ -157,7 +157,7 @@ h2 {
     align-items: center;
     justify-content: center;
     gap: 7px;
-    background: radial-gradient(ellipse at center, rgba(255, 30, 39, 0.06), transparent 65%);
+    background: radial-gradient(ellipse at center, rgba(227, 6, 19, 0.06), transparent 65%);
     cursor: pointer;
     text-align: center;
     transition: border-color 160ms ease, background-color 160ms ease;
@@ -166,7 +166,7 @@ h2 {
 .drop-zone:hover,
 .drop-zone.is-dragging {
     border-color: var(--red);
-    background-color: rgba(255, 30, 39, 0.06);
+    background-color: rgba(227, 6, 19, 0.06);
 }
 
 .drop-zone input {
@@ -370,7 +370,7 @@ h2 {
 }
 
 .action-bar button:hover:not(:disabled) {
-    background: #df101a;
+    background: #E30613;
 }
 
 .action-bar button:disabled {
