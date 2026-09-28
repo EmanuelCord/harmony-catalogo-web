@@ -12,9 +12,13 @@ Sitio catálogo y cotización de maquinaria premium para gimnasios HARMONY.
 ├── assets/
 │   ├── css/
 │   ├── js/
+│   │   └── products-data.js
 │   └── images/
-│       ├── optimized/
+│       ├── catalog/   (imágenes web optimizadas)
+│       ├── logo/
 │       └── products/  (originales locales, excluidos de Git)
+├── scripts/
+│   └── build-product-catalog.ps1
 ├── DEVELOPMENT.md
 └── README.md
 ```
@@ -24,3 +28,5 @@ Sitio catálogo y cotización de maquinaria premium para gimnasios HARMONY.
 Abre `index.html` en un navegador o publica el repositorio con GitHub Pages. Tailwind CSS, Google Fonts, Font Awesome y JSZip se cargan desde CDN, por lo que se necesita conexión a internet.
 
 Para optimizar fotos, abre `pages/optimizador-imagenes.html`, asigna las imágenes a las máquinas y descarga el ZIP. Extrae su carpeta `assets` en la raíz del proyecto.
+
+Para reconstruir automáticamente el catálogo completo desde las carpetas de origen, ejecuta `./scripts/build-product-catalog.ps1` en PowerShell.

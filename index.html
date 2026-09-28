@@ -169,9 +169,10 @@
                     <h2 class="text-3xl sm:text-5xl font-extrabold font-brand text-white uppercase tracking-tight">
                         Catálogo <span class="text-harmony-red">HARMONY</span>
                     </h2>
+                    <span id="products-count" class="mt-3 inline-block text-xs text-harmony-grayText"></span>
                 </div>
                 <p class="text-harmony-grayText text-sm max-w-md mt-4 md:mt-0">
-                    Selecciona una categoría para explorar la biomecánica, especificaciones técnicas y guía paso a paso de cada equipo.
+                    Explora las fotos de cada equipo, filtra por categoría y consulta con un asesor por medidas y especificaciones.
                 </p>
             </div>
 
@@ -198,86 +199,62 @@
         </div>
     </section>
 
-    <!-- Product Detail & Usage Modal -->
-    <div id="product-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
-        <div class="relative w-full max-w-4xl max-h-[90vh] bg-harmony-card border border-zinc-800 rounded-2xl overflow-y-auto shadow-2xl transition-all duration-300 scale-95" id="modal-content">
-            
-            <!-- Close Button -->
-            <button onclick="closeProductModal()" class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/60 border border-zinc-700 text-white flex items-center justify-center hover:bg-harmony-red transition-colors">
-                <i class="fa-solid fa-xmark text-lg"></i>
+    <!-- Product Lightbox -->
+    <div id="product-modal" class="product-lightbox fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300" onclick="handleProductModalBackdrop(event)" aria-hidden="true">
+        <div class="lightbox-shell relative w-full bg-harmony-card border border-zinc-800 shadow-2xl transition-all duration-300 scale-95" id="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1">
+            <button type="button" onclick="closeProductModal()" class="lightbox-close absolute z-20 rounded-full bg-black/70 border border-zinc-700 text-white flex items-center justify-center hover:bg-harmony-red transition-colors" aria-label="Cerrar galería">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
             </button>
 
-            <div class="grid grid-cols-1 md:grid-cols-2">
-                <!-- Product Image Preview Container -->
-                <div class="relative bg-black/50 p-6 flex flex-col justify-between border-b md:border-b-0 md:border-r border-zinc-800">
-                    <div class="absolute top-4 left-4 z-10">
-                        <span id="modal-category" class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-harmony-red/20 text-harmony-red border border-harmony-red/30">
-                            Categoría
-                        </span>
-                    </div>
+            <section class="lightbox-gallery" aria-label="Galería de imágenes del producto">
+                <span id="modal-category" class="lightbox-category px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-harmony-red/20 text-harmony-red border border-harmony-red/30">Categoría</span>
+                <div class="lightbox-stage">
+                    <button type="button" id="modal-prev" class="lightbox-arrow lightbox-arrow-prev" onclick="changeModalImage(-1)" aria-label="Imagen anterior">
+                        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                    </button>
+                    <img id="modal-image" src="" alt="Producto Harmony" decoding="async">
+                    <button type="button" id="modal-next" class="lightbox-arrow lightbox-arrow-next" onclick="changeModalImage(1)" aria-label="Imagen siguiente">
+                        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                    </button>
+                    <span id="modal-image-count" class="lightbox-image-count" aria-live="polite"></span>
+                </div>
+                <div id="modal-thumbnails" class="lightbox-thumbnails" aria-label="Seleccionar imagen"></div>
+            </section>
 
-                    <div class="my-auto py-8 flex justify-center">
-                        <img id="modal-image" src="" alt="Producto Harmony" loading="lazy" decoding="async" class="max-h-[380px] w-auto object-contain rounded-lg drop-shadow-[0_15px_15px_rgba(0,0,0,0.8)]">
-                    </div>
+            <aside class="lightbox-sidebar">
+                <div class="lightbox-details">
+                    <p id="modal-subtitle" class="text-xs text-harmony-red font-semibold uppercase tracking-wider mb-3">Línea HARMONY</p>
+                    <h3 id="modal-title" class="text-2xl sm:text-3xl font-black font-brand text-white uppercase tracking-tight mb-6">Nombre del Producto</h3>
 
-                    <div class="p-3 bg-zinc-900/80 rounded-lg border border-zinc-800 text-xs text-gray-400">
-                        <i class="fa-solid fa-shield-halved text-harmony-red mr-2"></i> Acabado en Pintura Electrostática Mate anti-corrosión & Tapizado Cuero HD con costura roja.
-                    </div>
+                    <section class="lightbox-info-section">
+                        <h4 class="text-xs font-bold text-gray-300 uppercase tracking-wider mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-align-left text-harmony-red" aria-hidden="true"></i> Descripción
+                        </h4>
+                        <p id="modal-description" class="text-harmony-grayText leading-relaxed text-xs sm:text-sm"></p>
+                    </section>
+
+                    <section class="lightbox-info-section">
+                        <h4 class="text-xs font-bold text-gray-300 uppercase tracking-wider mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-microchip text-harmony-red" aria-hidden="true"></i> Información del Producto
+                        </h4>
+                        <ul id="modal-specs" class="space-y-2 text-xs text-harmony-grayText"></ul>
+                    </section>
+
+                    <section class="lightbox-usage p-4 rounded-lg bg-zinc-900/90 border border-zinc-800">
+                        <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-person-walking-luggage text-harmony-red" aria-hidden="true"></i> Asesoramiento de Uso
+                        </h4>
+                        <p id="modal-usage" class="text-xs text-gray-300 leading-relaxed"></p>
+                    </section>
                 </div>
 
-                <!-- Product Details & Specs -->
-                <div class="p-6 sm:p-8 flex flex-col justify-between">
-                    <div>
-                        <h3 id="modal-title" class="text-2xl sm:text-3xl font-black font-brand text-white uppercase tracking-tight mb-2">
-                            Nombre del Producto
-                        </h3>
-                        <p id="modal-subtitle" class="text-xs text-harmony-red font-semibold uppercase tracking-wider mb-6">
-                            Subtítulo o código
-                        </p>
-
-                        <!-- Accordion Tabs / Sections -->
-                        <div class="space-y-6 text-sm">
-                            <!-- Description -->
-                            <div>
-                                <h4 class="text-xs font-bold text-gray-300 uppercase tracking-wider mb-2 flex items-center gap-2">
-                                    <i class="fa-solid fa-align-left text-harmony-red"></i> Biomecánica & Descripción
-                                </h4>
-                                <p id="modal-description" class="text-harmony-grayText leading-relaxed text-xs sm:text-sm">
-                                    Descripción detallada.
-                                </p>
-                            </div>
-
-                            <!-- Specs -->
-                            <div>
-                                <h4 class="text-xs font-bold text-gray-300 uppercase tracking-wider mb-2 flex items-center gap-2">
-                                    <i class="fa-solid fa-microchip text-harmony-red"></i> Especificaciones Técnicas
-                                </h4>
-                                <ul id="modal-specs" class="space-y-1.5 text-xs text-harmony-grayText">
-                                    <!-- Dynamic specs -->
-                                </ul>
-                            </div>
-
-                            <!-- Usage Guide -->
-                            <div class="p-4 rounded-xl bg-zinc-900/90 border border-zinc-800">
-                                <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-2 flex items-center gap-2">
-                                    <i class="fa-solid fa-person-walking-luggage text-harmony-red"></i> Guía de Uso Correcto
-                                </h4>
-                                <p id="modal-usage" class="text-xs text-gray-300 leading-relaxed">
-                                    Instrucciones de entrenamiento y postura.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Modal Actions -->
-                    <div class="mt-8 pt-6 border-t border-zinc-800 flex items-center gap-4">
-                        <button id="modal-add-btn" onclick="" class="flex-1 py-3.5 px-4 rounded-xl bg-harmony-red hover:bg-harmony-redHover text-white text-xs font-bold uppercase tracking-wider shadow-neon-red transition-all flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-plus"></i>
-                            <span>Agregar a Lista de Cotización</span>
-                        </button>
-                    </div>
+                <div class="lightbox-actions">
+                    <button id="modal-add-btn" type="button" class="w-full py-3.5 px-4 rounded-xl bg-harmony-red hover:bg-harmony-redHover text-white text-xs font-bold uppercase tracking-wider shadow-neon-red transition-all flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                        <span>Agregar a Lista de Cotización</span>
+                    </button>
                 </div>
-            </div>
+            </aside>
         </div>
     </div>
 
@@ -482,9 +459,10 @@
         </div>
     </footer>
 
+    <script src="assets/js/products-data.js"></script>
     <script>
         // Catalog Products Database with accurate images from user context
-        const productsData = [
+        const productsData = window.HARMONY_PRODUCTS || [
             {
                 id: 'hack-squat',
                 name: 'Prensa Hack Squat Pro 45°',
@@ -580,9 +558,13 @@
 
         // State Management
         let selectedQuoteItems = [];
+        const productCarouselIndices = new Map();
+        let activeModalProductId = null;
+        let modalReturnFocus = null;
 
         // DOM Ready Initializer
         document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('products-count').textContent = `${productsData.length} productos disponibles`;
             renderProductsGrid(productsData);
             setupMobileMenu();
         });
@@ -594,15 +576,28 @@
 
             products.forEach(product => {
                 const isSelected = selectedQuoteItems.some(item => item.id === product.id);
+                const images = product.images?.length ? product.images : [product.image];
+                const imageIndex = productCarouselIndices.get(product.id) || 0;
 
                 const cardHTML = `
-                    <div class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between group">
-                        <div class="relative p-6 bg-black/40 border-b border-zinc-800/80 flex items-center justify-center min-h-[280px]">
+                    <article class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between group" data-product-card="${product.id}">
+                        <div class="product-carousel relative bg-black/40 border-b border-zinc-800/80 flex items-center justify-center">
                             <span class="absolute top-4 left-4 z-10 text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-harmony-card border border-zinc-700 text-harmony-grayText">
                                 ${product.categoryLabel}
                             </span>
 
-                            <img src="${product.image}" alt="${product.name}" loading="lazy" decoding="async" class="max-h-[220px] w-auto object-contain transition-transform duration-500 group-hover:scale-105 drop-shadow-[0_10px_10px_rgba(0,0,0,0.7)]">
+                            <button type="button" class="product-image-open" onclick="openProductModal('${product.id}')" aria-label="Ampliar galería de ${product.name}">
+                                <img class="product-carousel-image" src="${images[imageIndex]}" alt="${product.name} - foto ${imageIndex + 1}" loading="lazy" decoding="async">
+                            </button>
+                            ${images.length > 1 ? `
+                                <button type="button" class="carousel-arrow carousel-arrow-prev" onclick="changeProductImage('${product.id}', -1)" aria-label="Foto anterior de ${product.name}">
+                                    <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                                </button>
+                                <button type="button" class="carousel-arrow carousel-arrow-next" onclick="changeProductImage('${product.id}', 1)" aria-label="Foto siguiente de ${product.name}">
+                                    <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                                </button>
+                                <span class="carousel-counter" aria-live="polite">${imageIndex + 1} / ${images.length}</span>
+                            ` : ''}
                         </div>
 
                         <div class="p-6 flex-1 flex flex-col justify-between">
@@ -628,10 +623,97 @@
                                 </button>
                             </div>
                         </div>
-                    </div>
+                    </article>
                 `;
                 grid.innerHTML += cardHTML;
             });
+        }
+
+        function changeProductImage(productId, direction) {
+            const product = productsData.find(item => item.id === productId);
+            if (!product) return;
+
+            const images = product.images?.length ? product.images : [product.image];
+            const currentIndex = productCarouselIndices.get(productId) || 0;
+            const nextIndex = (currentIndex + direction + images.length) % images.length;
+            productCarouselIndices.set(productId, nextIndex);
+
+            const card = Array.from(document.querySelectorAll('[data-product-card]'))
+                .find(item => item.dataset.productCard === productId);
+            if (!card) return;
+
+            const image = card.querySelector('.product-carousel-image');
+            image.src = images[nextIndex];
+            image.alt = `${product.name} - foto ${nextIndex + 1}`;
+            card.querySelector('.carousel-counter').textContent = `${nextIndex + 1} / ${images.length}`;
+
+            if (activeModalProductId === productId) {
+                renderModalGallery(product, nextIndex);
+            }
+        }
+
+        function renderModalGallery(product, imageIndex) {
+            const images = product.images?.length ? product.images : [product.image];
+            const normalizedIndex = (imageIndex + images.length) % images.length;
+            productCarouselIndices.set(product.id, normalizedIndex);
+
+            const modalImage = document.getElementById('modal-image');
+            modalImage.src = images[normalizedIndex];
+            modalImage.alt = `${product.name} - foto ${normalizedIndex + 1}`;
+            document.getElementById('modal-image-count').textContent = `${normalizedIndex + 1} / ${images.length}`;
+            document.getElementById('modal-prev').hidden = images.length < 2;
+            document.getElementById('modal-next').hidden = images.length < 2;
+
+            const thumbnails = document.getElementById('modal-thumbnails');
+            thumbnails.innerHTML = images.map((image, index) => `
+                <button type="button" class="lightbox-thumbnail ${index === normalizedIndex ? 'is-active' : ''}" onclick="selectModalImage(${index})" aria-label="Ver foto ${index + 1} de ${product.name}" aria-pressed="${index === normalizedIndex}">
+                    <img src="${image}" alt="" loading="lazy" decoding="async">
+                </button>
+            `).join('');
+        }
+
+        function selectModalImage(imageIndex) {
+            const product = productsData.find(item => item.id === activeModalProductId);
+            if (!product) return;
+
+            renderModalGallery(product, imageIndex);
+            const card = Array.from(document.querySelectorAll('[data-product-card]'))
+                .find(item => item.dataset.productCard === product.id);
+            if (!card) return;
+
+            const image = card.querySelector('.product-carousel-image');
+            image.src = product.images[imageIndex];
+            image.alt = `${product.name} - foto ${imageIndex + 1}`;
+            const counter = card.querySelector('.carousel-counter');
+            if (counter) counter.textContent = `${imageIndex + 1} / ${product.images.length}`;
+        }
+
+        function changeModalImage(direction) {
+            const product = productsData.find(item => item.id === activeModalProductId);
+            if (!product) return;
+
+            const currentIndex = productCarouselIndices.get(product.id) || 0;
+            const images = product.images?.length ? product.images : [product.image];
+            selectModalImage((currentIndex + direction + images.length) % images.length);
+        }
+
+        function handleProductModalBackdrop(event) {
+            if (event.target.id === 'product-modal') closeProductModal();
+        }
+
+        function handleProductModalKeys(event) {
+            const modal = document.getElementById('product-modal');
+            if (modal.classList.contains('pointer-events-none')) return;
+
+            if (event.key === 'Escape') {
+                closeProductModal();
+            } else if (event.key === 'ArrowLeft') {
+                event.preventDefault();
+                changeModalImage(-1);
+            } else if (event.key === 'ArrowRight') {
+                event.preventDefault();
+                changeModalImage(1);
+            }
         }
 
         // Filter Functionality
@@ -661,12 +743,15 @@
             const product = productsData.find(p => p.id === productId);
             if(!product) return;
 
+            modalReturnFocus = document.activeElement;
+            activeModalProductId = product.id;
+
             document.getElementById('modal-title').innerText = product.name;
             document.getElementById('modal-subtitle').innerText = product.subtitle;
             document.getElementById('modal-category').innerText = product.categoryLabel;
-            const modalImage = document.getElementById('modal-image');
-            modalImage.src = product.image;
-            modalImage.alt = product.name;
+            const images = product.images?.length ? product.images : [product.image];
+            const imageIndex = productCarouselIndices.get(product.id) || 0;
+            renderModalGallery(product, imageIndex);
             document.getElementById('modal-description').innerText = product.description;
             document.getElementById('modal-usage').innerText = product.usage;
 
@@ -697,19 +782,30 @@
             const modal = document.getElementById('product-modal');
             const modalContent = document.getElementById('modal-content');
             modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.setAttribute('aria-hidden', 'false');
             modalContent.classList.remove('scale-95');
             modalContent.classList.add('scale-100');
             document.body.style.overflow = 'hidden';
+            modalContent.focus();
         }
 
         function closeProductModal() {
             const modal = document.getElementById('product-modal');
             const modalContent = document.getElementById('modal-content');
             modal.classList.add('opacity-0', 'pointer-events-none');
+            modal.setAttribute('aria-hidden', 'true');
             modalContent.classList.remove('scale-100');
             modalContent.classList.add('scale-95');
             document.body.style.overflow = 'auto';
+            activeModalProductId = null;
+            if (modalReturnFocus?.isConnected) modalReturnFocus.focus();
         }
+
+        document.addEventListener('keydown', handleProductModalKeys);
+
+        document.getElementById('product-modal').addEventListener('click', event => {
+            if (event.target.closest('.lightbox-shell')) event.stopPropagation();
+        });
 
         // Quote Cart Management
         function toggleQuoteItem(productId) {
