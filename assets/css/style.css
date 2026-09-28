@@ -38,6 +38,44 @@ body {
     max-width: 130px;
 }
 
+.nav-quote-button {
+    box-sizing: border-box;
+    height: 40px;
+    padding: 0 14px;
+    border: 1px solid #29292f;
+    border-radius: 3px;
+    background: #000;
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(227, 6, 19, 0.2);
+}
+
+.nav-quote-button:hover,
+.nav-quote-button:focus-visible {
+    border-color: #E30613;
+    box-shadow: 0 4px 19px rgba(227, 6, 19, 0.3);
+    color: #fff;
+    outline: none;
+}
+
+.nav-cart-button {
+    box-sizing: border-box;
+    width: 42px;
+    height: 40px;
+    border: 1px solid #29292f;
+    border-radius: 3px;
+    background: #000;
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(227, 6, 19, 0.2);
+}
+
+.nav-cart-button:hover,
+.nav-cart-button:focus-visible {
+    border-color: #E30613;
+    box-shadow: 0 4px 19px rgba(227, 6, 19, 0.3);
+    color: #fff;
+    outline: none;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
     width: 8px;

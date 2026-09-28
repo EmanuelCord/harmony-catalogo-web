@@ -68,17 +68,14 @@
 
             <!-- Actions CTA & Mobile Menu Toggle -->
             <div class="responsive-header-actions flex items-center gap-4">
-                <a href="#cotizar" class="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-xs font-semibold tracking-wider uppercase rounded-lg group bg-gradient-to-br from-harmony-red to-harmony-red text-white shadow-neon-red hover:shadow-neon-red-lg transition-all duration-300">
-                    <span class="relative px-4 py-2.5 transition-all ease-in duration-75 bg-harmony-bg/20 rounded-md group-hover:bg-opacity-0 flex items-center gap-2">
-                        <i class="fa-solid fa-file-invoice">
-                        </i>
-                        <span>Cotizar Ahora</span>
-                    </span>
+                <a href="#cotizar" class="nav-quote-button inline-flex items-center justify-center gap-2 text-xs font-semibold tracking-wider uppercase transition-all duration-300">
+                    <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                    <span>Cotizar Ahora</span>
                 </a>
 
                 <!-- Cart / Quote Badge Button -->
-                <button onclick="openCartModal()" class="relative p-2.5 rounded-lg bg-harmony-card border border-harmony-cardBorder hover:border-harmony-red/50 text-gray-300 hover:text-white transition-all">
-                    <i class="fa-solid fa-dumbbell text-lg"></i>
+                <button onclick="openCartModal()" class="nav-cart-button relative inline-flex items-center justify-center transition-all" aria-label="Abrir lista de cotización">
+                    <i class="fa-solid fa-cart-shopping text-lg" aria-hidden="true"></i>
                     <span id="quote-badge" class="absolute -top-1.5 -right-1.5 bg-harmony-red text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-neon-red">0</span>
                 </button>
 
@@ -335,7 +332,7 @@
                             </div>
                             <div>
                                 <p class="text-xs text-harmony-grayText uppercase">Atención Inmediata WhatsApp</p>
-                                <p class="text-sm font-bold text-white">+54 9 11 8844-3322</p>
+                                <p class="text-sm font-bold text-white">+54 9 351 787-8832</p>
                             </div>
                         </div>
 
@@ -613,8 +610,8 @@
 
                             <div class="space-y-3 pt-4 border-t border-zinc-800/60">
                                 <button onclick="openProductModal('${product.id}')" class="w-full py-2.5 rounded-lg bg-zinc-900 border border-zinc-700 hover:border-harmony-red text-white text-xs font-semibold uppercase tracking-wider transition-all flex items-center justify-center gap-2">
-                                    <i class="fa-solid fa-circle-info text-harmony-red"></i>
-                                    <span>Ver Detalle & Uso</span>
+                                    <i class="fa-solid fa-eye text-harmony-red" aria-hidden="true"></i>
+                                    <span>Detalles</span>
                                 </button>
 
                                 <button onclick="toggleQuoteItem('${product.id}')" id="btn-quote-${product.id}" class="w-full py-2.5 rounded-lg ${isSelected ? 'bg-green-600 hover:bg-green-700' : 'bg-harmony-red hover:bg-harmony-redHover'} text-white text-xs font-bold uppercase tracking-wider shadow-neon-red transition-all flex items-center justify-center gap-2">
@@ -905,19 +902,26 @@
             const message = document.getElementById('form-message').value || 'Sin detalles extra';
 
             const itemsList = selectedQuoteItems.length > 0 
-                ? selectedQuoteItems.map(i => `• ${i.name} (${i.subtitle})`).join('%0A')
+                ? selectedQuoteItems.map(i => `• ${i.name} (${i.subtitle})`).join('\n')
                 : 'Consulta general de catálogo / Asesoramiento completo';
 
-            const text = `*SOLICITUD DE COTIZACIÓN - HARMONY FITNESS*%0A%0A` +
-                         `*Cliente:* ${name}%0A` +
-                         `*Teléfono:* ${phone}%0A` +
-                         `*Gimnasio/Empresa:* ${company}%0A` +
-                         `*Ubicación:* ${location}%0A%0A` +
-                         `*EQUIPOS DE INTERÉS:*%0A${itemsList}%0A%0A` +
-                         `*Mensaje:* ${message}`;
+            const text = [
+                '*SOLICITUD DE COTIZACIÓN - HARMONY FITNESS*',
+                '',
+                `*Cliente:* ${name}`,
+                `*Teléfono:* ${phone}`,
+                `*Gimnasio/Empresa:* ${company}`,
+                `*Ubicación:* ${location}`,
+                '',
+                '*EQUIPOS DE INTERÉS:*',
+                itemsList,
+                '',
+                `*Mensaje:* ${message}`
+            ].join('\n');
 
-            const whatsappUrl = `https://wa.me/5491188443322?text=${text}`;
-            window.open(whatsappUrl, '_blank');
+            const whatsappUrl = new URL('https://wa.me/5493517878832');
+            whatsappUrl.searchParams.set('text', text);
+            window.open(whatsappUrl.toString(), '_blank', 'noopener,noreferrer');
         }
 
         // Mobile Menu Toggle
