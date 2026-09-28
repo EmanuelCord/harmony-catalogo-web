@@ -6,6 +6,7 @@
     <title>HARMONY | Maquinaria de Gimnasio Premium & Alta Gama</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="assets/js/tailwind-config.js"></script>
     <!-- Google Fonts: Roboto & Montserrat -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,36 +15,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        harmony: {
-                            bg: '#0A0A0C',
-                            card: '#121215',
-                            cardBorder: '#1F1F26',
-                            red: '#E30613',
-                            redHover: '#E30613',
-                            redGlow: 'rgba(227, 6, 19, 0.4)',
-                            grayText: '#A1A1AA',
-                            darkSurface: '#16161A'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Roboto', 'sans-serif'],
-                        brand: ['Montserrat', 'sans-serif'],
-                    },
-                    boxShadow: {
-                        'neon-red': '0 0 20px rgba(227, 6, 19, 0.35)',
-                        'neon-red-lg': '0 0 35px rgba(227, 6, 19, 0.5)',
-                        'card-glow': '0 10px 30px -10px rgba(0, 0, 0, 0.8)'
-                    }
-                }
-            }
-        }
-    </script>
 </head>
 <body class="antialiased selection:bg-harmony-red selection:text-white">
 
@@ -112,22 +83,22 @@
             <!-- Main Heading -->
             <h1 class="responsive-heading text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight mb-6 uppercase font-brand leading-none">
                 <span class="gradient-text">INGENIERÍA DE PRECISIÓN</span> <br>
-                <span class="gradient-red-text">PARA GIMNASIOS DE ALTA GAMA</span>
+                    <span class="gradient-red-text">PARA CENTROS DE ENTRENAMIENTO DE ALTA GAMA</span>
             </h1>
 
             <p class="responsive-copy max-w-3xl mx-auto text-base sm:text-lg text-harmony-grayText mb-10 leading-relaxed">
-                Diseñadas para resistencia extrema y rendimiento biomecánico impecable. Estructuras de acero industrial con acabados en pintura electrostática mate y tapizado en microfibra deportiva reforzada.
+                Equipamiento biomecánico de alto rendimiento. Chasis de acero industrial de 3.5 mm, pintura electrostática mate y tapizado técnico de alta densidad diseñado para uso intensivo.
             </p>
 
             <!-- CTA Buttons -->
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
                 <a href="#catalogo" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-harmony-red hover:bg-harmony-redHover text-white font-bold text-sm tracking-wider uppercase shadow-neon-red hover:shadow-neon-red-lg transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-3">
                     <i class="fa-solid fa-list-check"></i>
-                    <span>Explorar Catálogo</span>
+                    <span>Explorar Catálogo Completo</span>
                 </a>
                 <a href="#cotizar" class="w-full sm:w-auto px-8 py-4 rounded-xl glass-panel border border-zinc-700 hover:border-harmony-red text-white font-bold text-sm tracking-wider uppercase transition-all flex items-center justify-center gap-3">
                     <i class="fa-brands fa-whatsapp text-green-500 text-lg"></i>
-                    <span>Solicitar Asesoría VIP</span>
+                    <span>Asesoría Técnica por WhatsApp</span>
                 </a>
             </div>
 
@@ -166,11 +137,19 @@
                     <h2 class="text-3xl sm:text-5xl font-extrabold font-brand text-white uppercase tracking-tight">
                         Catálogo <span class="text-harmony-red">HARMONY</span>
                     </h2>
-                    <span id="products-count" class="mt-3 inline-block text-xs text-harmony-grayText"></span>
+                    <span id="products-count" class="mt-3 inline-block text-xs text-harmony-grayText" aria-live="polite"></span>
                 </div>
                 <p class="text-harmony-grayText text-sm max-w-md mt-4 md:mt-0">
                     Explora las fotos de cada equipo, filtra por categoría y consulta con un asesor por medidas y especificaciones.
                 </p>
+            </div>
+
+            <div class="mb-6 max-w-xl">
+                <label for="productSearch" class="sr-only">Buscar equipos</label>
+                <div class="relative">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" aria-hidden="true"></i>
+                    <input id="productSearch" type="search" autocomplete="off" placeholder="Buscar equipo: Smith, prensa, banco" class="w-full rounded-lg border border-harmony-cardBorder bg-harmony-card py-3 pl-11 pr-4 text-sm text-white placeholder:text-gray-500 outline-none transition-colors focus:border-harmony-red">
+                </div>
             </div>
 
             <!-- Filter Tabs -->
@@ -192,6 +171,12 @@
             <!-- Products Grid Container -->
             <div class="responsive-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="products-grid">
                 <!-- Dynamic JavaScript rendering will populate products here -->
+            </div>
+            <div id="load-more-products-container" class="mt-10 flex justify-center" hidden>
+                <button id="load-more-products" type="button" onclick="loadMoreProducts()" aria-controls="products-grid" class="inline-flex items-center justify-center gap-2 rounded-lg border border-zinc-700 bg-harmony-card px-6 py-3 text-sm font-semibold text-white transition-colors hover:border-harmony-red hover:text-harmony-red">
+                    <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                    <span id="load-more-label">Cargar 6 más</span>
+                </button>
             </div>
         </div>
     </section>
@@ -322,7 +307,7 @@
                     </h2>
 
                     <p class="text-harmony-grayText text-sm leading-relaxed">
-                        Añade los equipos que deseas desde nuestro catálogo interactivo o envíanos un mensaje directo para recibir asesoría técnica en la configuración total de tu centro de entrenamiento.
+                        Añade los equipos que necesitas o indícanos los m² de tu espacio para asesorarte en la distribución e instalación de tu centro de entrenamiento.
                     </p>
 
                     <div class="space-y-4 pt-4">
@@ -342,7 +327,7 @@
                             </div>
                             <div>
                                 <p class="text-xs text-harmony-grayText uppercase">Ventas Directas</p>
-                                <p class="text-sm font-bold text-white">ventas@harmonyfitness.com</p>
+                                <p class="text-sm font-bold text-white">ventas@harmony.com</p>
                             </div>
                         </div>
                     </div>
@@ -359,24 +344,29 @@
                         <form id="quote-form" onsubmit="handleQuoteSubmit(event)" class="space-y-5">
                             <div class="responsive-form-grid grid grid-cols-1 sm:grid-cols-2 gap-5">
                                 <div>
-                                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">Nombre Completo *</label>
+                                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">Nombre y Apellido *</label>
                                     <input type="text" required id="form-name" placeholder="Ej. Carlos Mendoza" class="w-full px-4 py-3.5 rounded-xl bg-zinc-900 border border-zinc-800 text-white text-sm focus:border-harmony-red focus:outline-none transition-colors">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">Teléfono / WhatsApp *</label>
+                                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">WhatsApp de Contacto *</label>
                                     <input type="tel" required id="form-phone" placeholder="Ej. +54 9 11 ..." class="w-full px-4 py-3.5 rounded-xl bg-zinc-900 border border-zinc-800 text-white text-sm focus:border-harmony-red focus:outline-none transition-colors">
                                 </div>
                             </div>
 
                             <div class="responsive-form-grid grid grid-cols-1 sm:grid-cols-2 gap-5">
                                 <div>
-                                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">Gimnasio / Empresa</label>
+                                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">Gimnasio o Proyecto</label>
                                     <input type="text" id="form-company" placeholder="Ej. Harmony Gym Club" class="w-full px-4 py-3.5 rounded-xl bg-zinc-900 border border-zinc-800 text-white text-sm focus:border-harmony-red focus:outline-none transition-colors">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">Ciudad / Ubicación</label>
-                                    <input type="text" id="form-location" placeholder="Ej. Buenos Aires" class="w-full px-4 py-3.5 rounded-xl bg-zinc-900 border border-zinc-800 text-white text-sm focus:border-harmony-red focus:outline-none transition-colors">
+                                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">Ciudad / Localidad</label>
+                                    <input type="text" id="form-location" placeholder="Ej. Córdoba, Argentina" class="w-full px-4 py-3.5 rounded-xl bg-zinc-900 border border-zinc-800 text-white text-sm focus:border-harmony-red focus:outline-none transition-colors">
                                 </div>
+                            </div>
+
+                            <div>
+                                <label for="form-area" class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">Superficie aproximada (m²)</label>
+                                <input type="number" id="form-area" min="1" step="any" placeholder="Ej. 250" class="w-full px-4 py-3.5 rounded-xl bg-zinc-900 border border-zinc-800 text-white text-sm focus:border-harmony-red focus:outline-none transition-colors">
                             </div>
 
                             <!-- Selected Items Display inside Form -->
@@ -554,15 +544,19 @@
         ];
 
         // State Management
+        const PRODUCTS_PER_BATCH = 6;
         let selectedQuoteItems = [];
+        let activeCatalogCategory = 'all';
+        let visibleProductLimit = PRODUCTS_PER_BATCH;
+        let catalogCanCollapse = false;
         const productCarouselIndices = new Map();
         let activeModalProductId = null;
         let modalReturnFocus = null;
 
         // DOM Ready Initializer
         document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('products-count').textContent = `${productsData.length} productos disponibles`;
-            renderProductsGrid(productsData);
+            document.getElementById('productSearch').addEventListener('input', updateCatalogResults);
+            updateCatalogResults();
             setupMobileMenu();
         });
 
@@ -571,8 +565,14 @@
             const grid = document.getElementById('products-grid');
             grid.innerHTML = '';
 
+            if (products.length === 0) {
+                grid.innerHTML = '<p class="col-span-full py-16 text-center text-sm text-harmony-grayText">No se encontraron equipos. Prueba otra búsqueda o categoría.</p>';
+                return;
+            }
+
             products.forEach(product => {
-                const isSelected = selectedQuoteItems.some(item => item.id === product.id);
+                const selectedItem = selectedQuoteItems.find(item => item.id === product.id);
+                const isSelected = Boolean(selectedItem);
                 const images = product.images?.length ? product.images : [product.image];
                 const imageIndex = productCarouselIndices.get(product.id) || 0;
 
@@ -614,9 +614,9 @@
                                     <span>Detalles</span>
                                 </button>
 
-                                <button onclick="toggleQuoteItem('${product.id}')" id="btn-quote-${product.id}" class="w-full py-2.5 rounded-lg ${isSelected ? 'bg-green-600 hover:bg-green-700' : 'bg-harmony-red hover:bg-harmony-redHover'} text-white text-xs font-bold uppercase tracking-wider shadow-neon-red transition-all flex items-center justify-center gap-2">
-                                    <i class="fa-solid ${isSelected ? 'fa-check' : 'fa-plus'}"></i>
-                                    <span>${isSelected ? 'Añadido a Cotización' : 'Agregar a Cotización'}</span>
+                                <button onclick="addQuoteItem('${product.id}')" id="btn-quote-${product.id}" class="w-full py-2.5 rounded-lg ${isSelected ? 'bg-green-600 hover:bg-green-700' : 'bg-harmony-red hover:bg-harmony-redHover'} text-white text-xs font-bold uppercase tracking-wider shadow-neon-red transition-all flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                                    <span>${isSelected ? `Añadir otra (${selectedItem.quantity} en lista)` : 'Agregar a Cotización'}</span>
                                 </button>
                             </div>
                         </div>
@@ -715,6 +715,8 @@
 
         // Filter Functionality
         function filterCatalog(category) {
+            activeCatalogCategory = category;
+
             // Update active tab buttons
             const buttons = document.querySelectorAll('.filter-btn');
             buttons.forEach(btn => {
@@ -727,12 +729,58 @@
                 }
             });
 
-            if(category === 'all') {
-                renderProductsGrid(productsData);
-            } else {
-                const filtered = productsData.filter(p => p.category === category);
-                renderProductsGrid(filtered);
+            updateCatalogResults();
+        }
+
+        function normalizeCatalogText(value) {
+            return value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('es');
+        }
+
+        function updateCatalogResults(resetVisibleProducts = true) {
+            if (resetVisibleProducts) visibleProductLimit = PRODUCTS_PER_BATCH;
+
+            const searchTerm = normalizeCatalogText(document.getElementById('productSearch').value.trim());
+            const filteredProducts = productsData.filter(product => {
+                const matchesCategory = activeCatalogCategory === 'all' || product.category === activeCatalogCategory;
+                const searchableText = normalizeCatalogText([
+                    product.id,
+                    product.name,
+                    product.categoryLabel,
+                    product.subtitle,
+                    product.description
+                ].join(' '));
+
+                return matchesCategory && searchableText.includes(searchTerm);
+            });
+
+            const countLabel = document.getElementById('products-count');
+            const hasActiveFilters = searchTerm.length > 0 || activeCatalogCategory !== 'all';
+            const displayedCount = Math.min(visibleProductLimit, filteredProducts.length);
+            const remainingCount = filteredProducts.length - displayedCount;
+            countLabel.textContent = hasActiveFilters
+                ? `Mostrando ${displayedCount} de ${filteredProducts.length} ${filteredProducts.length === 1 ? 'resultado' : 'resultados'}`
+                : `Mostrando ${displayedCount} de ${filteredProducts.length} máquinas`;
+
+            const loadMoreContainer = document.getElementById('load-more-products-container');
+            catalogCanCollapse = remainingCount === 0 && displayedCount > PRODUCTS_PER_BATCH;
+            loadMoreContainer.hidden = remainingCount === 0 && !catalogCanCollapse;
+            const loadMoreIcon = document.querySelector('#load-more-products i');
+            if (remainingCount > 0) {
+                document.getElementById('load-more-label').textContent = `Cargar ${Math.min(PRODUCTS_PER_BATCH, remainingCount)} más`;
+                loadMoreIcon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+            } else if (catalogCanCollapse) {
+                document.getElementById('load-more-label').textContent = 'Ocultar';
+                loadMoreIcon.classList.replace('fa-chevron-down', 'fa-chevron-up');
             }
+
+            renderProductsGrid(filteredProducts.slice(0, displayedCount));
+        }
+
+        function loadMoreProducts() {
+            visibleProductLimit = catalogCanCollapse
+                ? PRODUCTS_PER_BATCH
+                : visibleProductLimit + PRODUCTS_PER_BATCH;
+            updateCatalogResults(false);
         }
 
         // Modal Handlers
@@ -760,16 +808,17 @@
             });
 
             // Update add button in modal
-            const isSelected = selectedQuoteItems.some(item => item.id === product.id);
+            const selectedItem = selectedQuoteItems.find(item => item.id === product.id);
+            const isSelected = Boolean(selectedItem);
             const modalAddBtn = document.getElementById('modal-add-btn');
             modalAddBtn.onclick = () => {
-                toggleQuoteItem(product.id);
+                addQuoteItem(product.id);
                 openProductModal(product.id); // Refresh modal button state
             };
 
             if(isSelected) {
                 modalAddBtn.className = "flex-1 py-3.5 px-4 rounded-xl bg-green-600 hover:bg-green-700 text-white text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2";
-                modalAddBtn.innerHTML = `<i class="fa-solid fa-check"></i><span>En Lista de Cotización</span>`;
+                modalAddBtn.innerHTML = `<i class="fa-solid fa-plus" aria-hidden="true"></i><span>Añadir otra (${selectedItem.quantity} en lista)</span>`;
             } else {
                 modalAddBtn.className = "flex-1 py-3.5 px-4 rounded-xl bg-harmony-red hover:bg-harmony-redHover text-white text-xs font-bold uppercase tracking-wider shadow-neon-red transition-all flex items-center justify-center gap-2";
                 modalAddBtn.innerHTML = `<i class="fa-solid fa-plus"></i><span>Agregar a Lista de Cotización</span>`;
@@ -805,27 +854,47 @@
         });
 
         // Quote Cart Management
-        function toggleQuoteItem(productId) {
-            const index = selectedQuoteItems.findIndex(item => item.id === productId);
+        function addQuoteItem(productId) {
             const product = productsData.find(p => p.id === productId);
+            if (!product) return;
 
-            if(index > -1) {
-                selectedQuoteItems.splice(index, 1);
-            } else if(product) {
-                selectedQuoteItems.push(product);
+            const selectedItem = selectedQuoteItems.find(item => item.id === productId);
+            if (selectedItem) selectedItem.quantity += 1;
+            else selectedQuoteItems.push({ ...product, quantity: 1 });
+
+            refreshQuoteState();
+        }
+
+        function decreaseQuoteItem(productId) {
+            const selectedItem = selectedQuoteItems.find(item => item.id === productId);
+            if (!selectedItem) return;
+
+            if (selectedItem.quantity <= 1) {
+                removeQuoteItem(productId);
+                return;
             }
 
+            selectedItem.quantity -= 1;
+            refreshQuoteState();
+        }
+
+        function removeQuoteItem(productId) {
+            selectedQuoteItems = selectedQuoteItems.filter(item => item.id !== productId);
+            refreshQuoteState();
+        }
+
+        function refreshQuoteState() {
             updateQuoteBadge();
             updateFormSelectedItemsDisplay();
-            
-            // Re-render to update catalog button status
             const activeFilter = document.querySelector('.filter-btn.bg-harmony-red')?.dataset.category || 'all';
-            filterCatalog(activeFilter);
+            activeCatalogCategory = activeFilter;
+            updateCatalogResults(false);
+            renderCartDrawerItems();
         }
 
         function updateQuoteBadge() {
             const badge = document.getElementById('quote-badge');
-            badge.innerText = selectedQuoteItems.length;
+            badge.innerText = selectedQuoteItems.reduce((total, item) => total + item.quantity, 0);
         }
 
         function updateFormSelectedItemsDisplay() {
@@ -837,9 +906,9 @@
 
             container.innerHTML = selectedQuoteItems.map(item => `
                 <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-harmony-red/20 border border-harmony-red/40 text-white font-medium text-xs">
-                    ${item.name}
-                    <button type="button" onclick="toggleQuoteItem('${item.id}')" class="text-harmony-grayText hover:text-white ml-1">
-                        <i class="fa-solid fa-xmark text-xs"></i>
+                    ${item.name} <strong>× ${item.quantity}</strong>
+                    <button type="button" onclick="decreaseQuoteItem('${item.id}')" aria-label="Quitar una unidad de ${item.name}" class="text-harmony-grayText hover:text-white ml-1">
+                        <i class="fa-solid fa-minus text-xs" aria-hidden="true"></i>
                     </button>
                 </span>
             `).join('');
@@ -874,9 +943,18 @@
                         <div>
                             <p class="text-xs font-bold uppercase text-white">${item.name}</p>
                             <p class="text-[10px] text-harmony-red">${item.subtitle}</p>
+                            <div class="mt-2 inline-flex items-center gap-2" aria-label="Cantidad de ${item.name}">
+                                <button type="button" onclick="decreaseQuoteItem('${item.id}')" aria-label="Quitar una unidad de ${item.name}" class="flex size-7 items-center justify-center rounded border border-zinc-700 text-white hover:border-harmony-red" aria-controls="cart-items-list">
+                                    <i class="fa-solid fa-minus text-[10px]" aria-hidden="true"></i>
+                                </button>
+                                <span class="min-w-5 text-center text-xs font-bold text-white" aria-live="polite">${item.quantity}</span>
+                                <button type="button" onclick="addQuoteItem('${item.id}')" aria-label="Agregar una unidad de ${item.name}" class="flex size-7 items-center justify-center rounded border border-zinc-700 text-white hover:border-harmony-red" aria-controls="cart-items-list">
+                                    <i class="fa-solid fa-plus text-[10px]" aria-hidden="true"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <button onclick="toggleQuoteItem('${item.id}'); renderCartDrawerItems();" class="p-2 text-zinc-500 hover:text-harmony-red">
+                    <button type="button" onclick="removeQuoteItem('${item.id}')" aria-label="Quitar ${item.name} de la cotización" class="p-2 text-zinc-500 hover:text-harmony-red">
                         <i class="fa-solid fa-trash text-xs"></i>
                     </button>
                 </div>
@@ -888,7 +966,7 @@
             updateQuoteBadge();
             updateFormSelectedItemsDisplay();
             renderCartDrawerItems();
-            renderProductsGrid(productsData);
+            updateCatalogResults(false);
         }
 
         // WhatsApp Quote Submission
@@ -899,10 +977,11 @@
             const phone = document.getElementById('form-phone').value;
             const company = document.getElementById('form-company').value || 'No especificado';
             const location = document.getElementById('form-location').value || 'No especificada';
+            const area = document.getElementById('form-area').value || 'No especificada';
             const message = document.getElementById('form-message').value || 'Sin detalles extra';
 
             const itemsList = selectedQuoteItems.length > 0 
-                ? selectedQuoteItems.map(i => `• ${i.name} (${i.subtitle})`).join('\n')
+                ? selectedQuoteItems.map(i => `• ${i.quantity} × ${i.name} (${i.subtitle})`).join('\n')
                 : 'Consulta general de catálogo / Asesoramiento completo';
 
             const text = [
@@ -912,6 +991,7 @@
                 `*Teléfono:* ${phone}`,
                 `*Gimnasio/Empresa:* ${company}`,
                 `*Ubicación:* ${location}`,
+                `*Superficie aproximada:* ${area}${area === 'No especificada' ? '' : ' m²'}`,
                 '',
                 '*EQUIPOS DE INTERÉS:*',
                 itemsList,
