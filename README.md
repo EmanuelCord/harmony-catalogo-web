@@ -30,3 +30,5 @@ Abre `index.html` en un navegador o publica el repositorio con GitHub Pages. Tai
 Para optimizar fotos, abre `pages/optimizador-imagenes.html`, asigna las imágenes a las máquinas y descarga el ZIP. Extrae su carpeta `assets` en la raíz del proyecto.
 
 Para reconstruir automáticamente el catálogo completo desde las carpetas de origen, ejecuta `./scripts/build-product-catalog.ps1` en PowerShell.
+
+El formulario prepara una solicitud con los datos y equipos seleccionados, y abre WhatsApp para que el cliente revise y envíe el mensaje.

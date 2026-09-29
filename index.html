@@ -231,10 +231,7 @@
                 </div>
 
                 <div class="lightbox-actions">
-                    <button id="modal-add-btn" type="button" class="w-full py-3.5 px-4 rounded-xl bg-harmony-red hover:bg-harmony-redHover text-white text-xs font-bold uppercase tracking-wider shadow-neon-red transition-all flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-plus" aria-hidden="true"></i>
-                        <span>Agregar a Lista de Cotización</span>
-                    </button>
+                    <div id="modal-quote-controls"></div>
                 </div>
             </aside>
         </div>
@@ -337,7 +334,7 @@
                 <div class="lg:col-span-7">
                     <div class="p-8 sm:p-10 rounded-2xl glass-panel border border-zinc-800 shadow-2xl relative">
                         <h3 class="text-xl font-bold font-brand text-white uppercase mb-6 flex items-center gap-2">
-                            <i class="fa-solid fa-paper-plane text-harmony-red"></i>
+                            <i class="fa-solid fa-rectangle-list text-harmony-red" aria-hidden="true"></i>
                             Formulario de Presupuesto Directo
                         </h3>
 
@@ -362,11 +359,6 @@
                                     <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">Ciudad / Localidad</label>
                                     <input type="text" id="form-location" placeholder="Ej. Córdoba, Argentina" class="w-full px-4 py-3.5 rounded-xl bg-zinc-900 border border-zinc-800 text-white text-sm focus:border-harmony-red focus:outline-none transition-colors">
                                 </div>
-                            </div>
-
-                            <div>
-                                <label for="form-area" class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">Superficie aproximada (m²)</label>
-                                <input type="number" id="form-area" min="1" step="any" placeholder="Ej. 250" class="w-full px-4 py-3.5 rounded-xl bg-zinc-900 border border-zinc-800 text-white text-sm focus:border-harmony-red focus:outline-none transition-colors">
                             </div>
 
                             <!-- Selected Items Display inside Form -->
@@ -441,7 +433,6 @@
                 <a href="#catalogo" class="hover:text-harmony-red transition-colors">Catálogo</a>
                 <a href="#caracteristicas" class="hover:text-harmony-red transition-colors">Garantía</a>
                 <a href="#cotizar" class="hover:text-harmony-red transition-colors">Soporte</a>
-                <a href="pages/optimizador-imagenes.html" class="hover:text-harmony-red transition-colors">Optimizar imágenes</a>
             </div>
         </div>
     </footer>
@@ -614,16 +605,34 @@
                                     <span>Detalles</span>
                                 </button>
 
-                                <button onclick="addQuoteItem('${product.id}')" id="btn-quote-${product.id}" class="w-full py-2.5 rounded-lg ${isSelected ? 'bg-green-600 hover:bg-green-700' : 'bg-harmony-red hover:bg-harmony-redHover'} text-white text-xs font-bold uppercase tracking-wider shadow-neon-red transition-all flex items-center justify-center gap-2">
-                                    <i class="fa-solid fa-plus" aria-hidden="true"></i>
-                                    <span>${isSelected ? `Añadir otra (${selectedItem.quantity} en lista)` : 'Agregar a Cotización'}</span>
-                                </button>
+                                ${renderQuoteControls(product, 'card')}
                             </div>
                         </div>
                     </article>
                 `;
                 grid.innerHTML += cardHTML;
             });
+        }
+
+        function renderQuoteControls(product, context) {
+            const selectedItem = selectedQuoteItems.find(item => item.id === product.id);
+            const quantity = selectedItem?.quantity || 0;
+            const scope = context === 'card' ? `quote-controls-${product.id}` : 'modal-quote-control';
+
+            return `
+                <div class="quote-control-row ${context === 'modal' ? 'quote-control-row-modal' : ''}" id="${scope}" aria-label="Cantidad a cotizar de ${product.name}">
+                    <span class="quote-control-label">Agregar a cotización</span>
+                    <div class="quote-stepper">
+                        <button type="button" onclick="decreaseQuoteItem('${product.id}')" aria-label="Restar ${product.name}" ${quantity === 0 ? 'disabled' : ''}>
+                            <i class="fa-solid fa-minus" aria-hidden="true"></i>
+                        </button>
+                        <span class="quote-quantity" aria-live="polite">${quantity}</span>
+                        <button type="button" onclick="addQuoteItem('${product.id}')" aria-label="Sumar ${product.name}">
+                            <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
         }
 
         function changeProductImage(productId, direction) {
@@ -807,22 +816,7 @@
                 specsList.innerHTML += `<li class="flex items-start gap-2"><i class="fa-solid fa-angle-right text-harmony-red mt-1"></i> <span>${spec}</span></li>`;
             });
 
-            // Update add button in modal
-            const selectedItem = selectedQuoteItems.find(item => item.id === product.id);
-            const isSelected = Boolean(selectedItem);
-            const modalAddBtn = document.getElementById('modal-add-btn');
-            modalAddBtn.onclick = () => {
-                addQuoteItem(product.id);
-                openProductModal(product.id); // Refresh modal button state
-            };
-
-            if(isSelected) {
-                modalAddBtn.className = "flex-1 py-3.5 px-4 rounded-xl bg-green-600 hover:bg-green-700 text-white text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2";
-                modalAddBtn.innerHTML = `<i class="fa-solid fa-plus" aria-hidden="true"></i><span>Añadir otra (${selectedItem.quantity} en lista)</span>`;
-            } else {
-                modalAddBtn.className = "flex-1 py-3.5 px-4 rounded-xl bg-harmony-red hover:bg-harmony-redHover text-white text-xs font-bold uppercase tracking-wider shadow-neon-red transition-all flex items-center justify-center gap-2";
-                modalAddBtn.innerHTML = `<i class="fa-solid fa-plus"></i><span>Agregar a Lista de Cotización</span>`;
-            }
+            document.getElementById('modal-quote-controls').innerHTML = renderQuoteControls(product, 'modal');
 
             // Show Modal
             const modal = document.getElementById('product-modal');
@@ -890,6 +884,13 @@
             activeCatalogCategory = activeFilter;
             updateCatalogResults(false);
             renderCartDrawerItems();
+
+            if (activeModalProductId) {
+                const activeProduct = productsData.find(product => product.id === activeModalProductId);
+                if (activeProduct) {
+                    document.getElementById('modal-quote-controls').innerHTML = renderQuoteControls(activeProduct, 'modal');
+                }
+            }
         }
 
         function updateQuoteBadge() {
@@ -977,7 +978,6 @@
             const phone = document.getElementById('form-phone').value;
             const company = document.getElementById('form-company').value || 'No especificado';
             const location = document.getElementById('form-location').value || 'No especificada';
-            const area = document.getElementById('form-area').value || 'No especificada';
             const message = document.getElementById('form-message').value || 'Sin detalles extra';
 
             const itemsList = selectedQuoteItems.length > 0 
@@ -991,7 +991,6 @@
                 `*Teléfono:* ${phone}`,
                 `*Gimnasio/Empresa:* ${company}`,
                 `*Ubicación:* ${location}`,
-                `*Superficie aproximada:* ${area}${area === 'No especificada' ? '' : ' m²'}`,
                 '',
                 '*EQUIPOS DE INTERÉS:*',
                 itemsList,

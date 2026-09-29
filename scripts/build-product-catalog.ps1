@@ -139,7 +139,6 @@ foreach ($folder in $sourceFolders) {
     }
 
     $catalogLabel = 'Cat' + [char]0x00E1 + 'logo HARMONY'
-    $photoLabel = 'Fotograf' + [char]0x00ED + 'as disponibles'
     $categoryLabelText = 'Categor' + [char]0x00ED + 'a'
     $lineLabel = 'l' + [char]0x00ED + 'nea profesional'
     $installationLabel = 'instalaci' + [char]0x00F3 + 'n'
@@ -155,7 +154,6 @@ foreach ($folder in $sourceFolders) {
         images = @($imagePaths)
         description = $descriptions[$folder.Name]
         specs = @(
-            "${photoLabel}: $($imagePaths.Count)."
             "${categoryLabelText}: $categoryLabel."
             'Consulta con nuestro equipo para conocer medidas, disponibilidad y especificaciones.'
         )

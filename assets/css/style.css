@@ -76,6 +76,77 @@ body {
     outline: none;
 }
 
+.quote-control-row {
+    min-height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.quote-control-label {
+    color: #f4f4f5;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.35;
+    text-transform: uppercase;
+}
+
+.quote-stepper {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.quote-stepper button {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #3b3b42;
+    border-radius: 3px;
+    display: grid;
+    place-items: center;
+    background: #09090a;
+    color: #fff;
+    cursor: pointer;
+    transition: border-color 150ms ease, background-color 150ms ease;
+}
+
+.quote-stepper button:hover:not(:disabled),
+.quote-stepper button:focus-visible:not(:disabled) {
+    border-color: #E30613;
+    background: #E30613;
+    outline: none;
+}
+
+.quote-stepper button:disabled {
+    color: #62626a;
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+.quote-quantity {
+    min-width: 22px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+}
+
+.quote-control-row-modal {
+    min-height: 44px;
+}
+
+.quote-control-row-modal .quote-control-label {
+    font-size: 11px;
+}
+
+.quote-control-row-modal .quote-stepper button {
+    width: 36px;
+    height: 36px;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
